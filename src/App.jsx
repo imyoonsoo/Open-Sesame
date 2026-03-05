@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
+        <Route>
           <Route path="/" element={<HomePage />} />
           <Route path="/list" element={<ListPage />} />
           <Route path="/post/:id" element={<PostPage />} />
