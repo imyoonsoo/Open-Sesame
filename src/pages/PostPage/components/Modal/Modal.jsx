@@ -1,17 +1,28 @@
-import CloseIcon from '../../../../assets/icons/Close.svg';
+import './Modal.css';
+import CloseIcon from '../../../../assets/icons/Close-icon.svg';
+import MessagesIcon from '../../../../assets/icons/Messages-icon.svg';
+import DefaultImg from '../../../../assets/icons/Default-image.svg';
 
 export function Modal() {
   return (
     <div className="modal">
-      <div className="modal__heaader"></div>
-      <div className="modal__title"></div>
-      <button className="modal__close-button">
-        <img src={CloseIcon} alt="닫기" />
-      </button>
-      <div className="modal__user-info"></div>
-      <div className="modal_body">
-        <div className="modal__input" />
-        <button className="modal__submit-button" />
+      <div className="modal__header">
+        <div className="modal__title-wrapper">
+          <img src={MessagesIcon} />
+          <div className="modal__title">질문을 작성하세요</div>
+        </div>
+        <button className="modal__close-button">
+          <img src={CloseIcon} alt="닫기" />
+        </button>
+      </div>
+      <div className="modal__user-info">
+        <span>To.</span>
+        <img src={DefaultImg} />
+        <span>아초는고양이</span>
+      </div>
+      <div className="modal__body">
+        <textarea className="modal__input" placeholder="질문을 입력해주세요" />
+        <button className="modal__submit-button">질문 보내기</button>
       </div>
     </div>
   );
