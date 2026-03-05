@@ -1,9 +1,23 @@
+import { useState, useEffect } from 'react';
 import FeedCard from './FeedCard';
+import './FeedGrid.css';
 
-function FeedGrid({ items, onClickCard }) {
+
+function FeedGrid() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(()=>{
+    fetch('https://openmind-api.vercel.app/23-4/subjects/')
+      .then(respose => {
+        return respose.json();
+      })
+      .then(data => {
+        setUsers(data.results);
+      })
+  }, []);
   return (
     <div className="feed-grid">
-      {items.map((item) => (
+      {users.map((item) => (
         <FeedCard
           key={item.id}
           item={item}
