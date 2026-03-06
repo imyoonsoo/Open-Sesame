@@ -4,7 +4,8 @@
 }
 
 .modal {
-  padding: 40px;
+  max-width: 600px;
+  padding: 30px;
   border-radius: 24px;
   box-shadow: 0 16px 20px 0 rgba(48, 48, 48, 0.62);
 }
@@ -56,4 +57,14 @@
 .modal__submit-button:disabled {
   color: #ffffff;
   background-color: #c7bbb5;
+}
+
+@media (min-width: 375px) and (max-width: 560px) {
+  .modal {
+    padding: 25px;
+    margin: auto 25px;
+  }
+  .modal__input {
+    height: 350px;
+  }
 }
