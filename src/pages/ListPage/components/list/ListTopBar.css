@@ -1,45 +1,21 @@
 .headerLeft {
   display: flex;
+  flex-direction: column;
   align-items: center;
-}
-
-.headerLogo {
-  margin-right: 16px;
-}
-
-.globalHeader nav ul {
-  display: flex;
-  list-style: none;
-  gap: 8px;
-  font-weight: bold;
-  font-size: 16px;
-  color: #4b5563;
-}
-
-.globalHeader nav ul li a:hover {
-  color: var(--blue);
-}
-
-.login {
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 8px;
-  padding: 11.5px 23px;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+  gap: 20px;
 }
 
 @media (min-width: 768px) {
-  .globalHeader nav ul {
-    gap: 36px;
-    font-size: 18px;
-  }
-
-  .headerLogo {
-    margin-right: 35px;
+  .headerLeft {
+    flex-direction: row;
   }
 }
-
-@media (min-width: 1280px) {
-  .headerLogo {
-    margin-right: 47px;
+@media (min-width: 1200px) {
+  .headerLeft {
+    flex-direction: row;
   }
 }
+ 

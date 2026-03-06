@@ -17,7 +17,7 @@ function FeedGrid() {
   }, []);
   return (
     <div className="feed-grid">
-      {users.map((item) => (
+      {users.slice(0, 8).map((item) => (
         <FeedCard
           key={item.id}
           item={item}

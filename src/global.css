@@ -94,6 +94,7 @@ body {
   color: #374151;
   word-break: keep-all;
   font-family: 'Pretendard', sans-serif;
+  background-color: var(--Grayscale-20);
 }
 
 #copyright {
