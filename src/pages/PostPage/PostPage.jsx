@@ -19,8 +19,30 @@ function PostPage() {
   };
 
   const ShareKakao = () => {
-    /* 구현 중 */
-    alert('카카오톡 공유!');
+    if (window.Kakao) {
+      window.Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+          title: '야옹이',
+          description: '신나는 노래 추천 받습니다!!!!!',
+          imageUrl:
+            'https://images.pet-friends.co.kr/v2/community/2025/11/16/f80f0c50-abed-431b-ad7c-63b1007b7eab.jpeg?f=webp',
+          link: {
+            mobileWebUrl: window.location.href,
+            webUrl: window.location.href,
+          },
+        },
+        buttons: [
+          {
+            title: '웹으로 보기',
+            link: {
+              mobileWebUrl: window.location.href,
+              webUrl: window.location.href,
+            },
+          },
+        ],
+      });
+    }
   };
 
   const ShareFacebook = () => {
