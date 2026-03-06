@@ -12,7 +12,8 @@ function PostPage() {
   const [isToast, setIsToast] = useState(false); // 토스트 기본 설정 -> false
 
   const CopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
+    const currentUrl = window.location.href;
+    navigator.clipboard.writeText(currentUrl);
     setIsToast(true);
     setTimeout(() => setIsToast(false), 5000);
   };
@@ -23,8 +24,10 @@ function PostPage() {
   };
 
   const ShareFacebook = () => {
-    /* 구현 중 */
-    alert('페이스북 공유!');
+    const currentUrl = window.location.href;
+    window.open(
+      `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`
+    );
   };
 
   return (
