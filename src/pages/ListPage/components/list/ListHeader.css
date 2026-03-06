@@ -1,0 +1,20 @@
+.list-header {
+  display: flex;
+  flex-direction: column; /* ✅ 세로 배치 */
+  align-items: center; /* ✅ 가운데 정렬 */
+  gap: 16px; /* 제목과 드롭다운 간격 */
+  padding: 40px 0 24px;
+}
+
+.list-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 드롭다운을 제목 아래 가운데 */
+.list-sort {
+  display: flex;
+  justify-content: center;
+}

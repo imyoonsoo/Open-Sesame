@@ -1,0 +1,20 @@
+.feed-grid {
+  display: grid;
+  gap: 24px;
+
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .feed-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
