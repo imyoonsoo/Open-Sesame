@@ -1,0 +1,34 @@
+.sortSelectWrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* 기본 화살표 숨기기 */
+.sortSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  padding: 8px 40px 8px 12px; /* 오른쪽 공간 확보 */
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background: #fff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+}
+
+/* 오른쪽 화살표 이미지 배치 */
+.sortArrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 12px;
+  height: 12px;
+
+  pointer-events: none; /* ✅ 클릭 방해 X */
+}
