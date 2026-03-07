@@ -1,27 +1,72 @@
-import './SortDropdown.css'
-import ArrowDown from '../../../assets/images/arrowDown.svg'
+import { useEffect, useRef, useState } from 'react';
+import './SortDropdown.css';
+import ArrowDown from '../../../assets/images/arrowDown.svg';
+import ArrowUp from '../../../assets/images/arrowUp.svg';
 
 function SortDropdown({ value, options, onChange }) {
-  return (
-    // select와 화살표 이미지를 함께 배치하기 위한 wrapper
-    <div className="sortSelectWrap">
-      <select
-        className="sortSelect"
-        value={value} // 현재 선택된 정렬값
-        onChange={(e) => onChange(e.target.value)} // 값 변경 시 상위 컴포넌트에 전달
-      >
-        {/* 전달받은 정렬 옵션 목록을 option으로 렌더링 */}
-        {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>
-            {opt.label}
-          </option>
-        ))}
-      </select>
+  const [open, setOpen] = useState(false);
 
-      {/* select 기본 화살표 대신 사용하는 커스텀 아이콘 */}
-      <img className="sortArrow" src={ArrowDown} alt="정렬 화살표" />
+  // 드롭다운 전체 영역을 참조해서 바깥 클릭 여부를 확인
+  const dropdownRef = useRef(null);
+
+  // 현재 선택된 옵션 label 찾기
+  const currentLabel = options.find((opt) => opt.value === value)?.label || '';
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // 드롭다운 바깥을 클릭한 경우 닫기
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    // 컴포넌트가 사라질 때 이벤트 제거
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className="sortDropdown" ref={dropdownRef}>
+      {/* 현재 선택된 정렬 기준 버튼 */}
+      <button
+        type="button"
+        className="sortButton"
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        <span>{currentLabel}</span>
+
+        {/* 열림/닫힘 상태에 따라 화살표 이미지 변경 */}
+        <img
+          src={open ? ArrowUp : ArrowDown}
+          alt="정렬 화살표"
+          className="sortButtonArrow"
+        />
+      </button>
+
+      {/* 드롭다운 메뉴 */}
+      {open && (
+        <ul className="sortMenu">
+          {options.map((opt) => (
+            <li key={opt.value}>
+              <button
+                type="button"
+                className={`sortItem ${value === opt.value ? 'active' : ''}`}
+                onClick={() => {
+                  onChange(opt.value);
+                  setOpen(false);
+                }}
+              >
+                {opt.label}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
 
-export default SortDropdown
+export default SortDropdown;
