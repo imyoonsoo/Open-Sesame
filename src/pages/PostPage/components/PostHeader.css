@@ -1,0 +1,90 @@
+/* 기본(모바일) */
+#postpage-header {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.post-header {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.post-content {
+  display: flex;
+  position: absolute;
+  top: 30px;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+.post-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.post-profile {
+  width: 104px;
+  height: 104px;
+  border-radius: 50%;
+}
+.post-name {
+  font-size: 24px;
+  color: #000000;
+  margin: 0;
+}
+.post-share {
+  display: flex;
+  gap: 12px;
+}
+
+/* 버튼 공통 스타일 유지 */
+.post-linkBtn,
+.post-kakaoBtn,
+.post-facebookBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 각 버튼 배경색 */
+.post-linkBtn {
+  background: #542f1a;
+}
+
+.post-kakaoBtn {
+  background: #f9e000;
+}
+
+.post-facebookBtn {
+  background: #1877f2;
+}
+
+/* 버튼 속 벡터 크기 */
+.post-linkVector,
+.post-kakaoVector,
+.post-facebookVector {
+  width: 18px;
+  height: 18px;
+}
+
+/* 반응형: 화면이 커질 때 크기만 조절 */
+@media (min-width: 768px) {
+  .post-logo {
+    width: 170px;
+  }
+  .post-profile {
+    width: 136px;
+    height: 136px;
+  }
+}

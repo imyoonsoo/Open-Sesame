@@ -1,0 +1,70 @@
+.modal img {
+  width: 24px;
+  height: 24px;
+}
+
+.modal {
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 24px;
+  box-shadow: 0 16px 20px 0 rgba(48, 48, 48, 0.62);
+}
+
+.modal__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.modal__title-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.modal__title {
+  margin-top: 3px;
+  font-size: 20px;
+}
+
+.modal__user-info {
+  margin-top: 40px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.modal__input {
+  margin-top: 12px;
+  padding: 16px;
+  width: 100%;
+  height: 180px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  color: #818181;
+  background-color: #f9f9f9;
+  resize: none;
+}
+
+.modal__submit-button {
+  margin-top: 8px;
+  padding: 12px;
+  width: 100%;
+  border-radius: 8px;
+  color: #ffffff;
+  background-color: #542f1a;
+}
+
+.modal__submit-button:disabled {
+  color: #ffffff;
+  background-color: #c7bbb5;
+}
+
+@media (min-width: 375px) and (max-width: 560px) {
+  .modal {
+    padding: 25px;
+    margin: auto 25px;
+  }
+  .modal__input {
+    height: 350px;
+  }
+}
