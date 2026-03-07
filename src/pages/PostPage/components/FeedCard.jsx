@@ -1,9 +1,9 @@
 import React from 'react';
 import './FeedCard.css';
-import defaultCatImage from '@/assets/images/cat.png';
+import defaultCatImage from '@/assets/images/img-profile-cat.png';
 // import globalcss 나오면 적용~
-import thumbsUp from '@/assets/icon/thumbs-up.svg';
-import thumbsDown from '@/assets/icon/thumbs-down.svg';
+import thumbsUp from '@/assets/icons/icon-thumbs-up.svg';
+import thumbsDown from '@/assets/icons/icon-thumbs-down.svg';
 
 // api연동 전 단계이므로 목데이터 미리 삽입
 const FeedCard = ({

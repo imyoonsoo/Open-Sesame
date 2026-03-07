@@ -1,6 +1,6 @@
 import "./Pagination.css";
-import LeftArrow from "@/assets/images/arrowLeft.svg";
-import RightArrow from "@/assets/images/arrowRight.svg";
+import LeftArrow from "@/assets/icons/icon-arrow-left.svg";
+import RightArrow from "@/assets/icons/icon-arrow-right.svg";
 
 function Pagination({ current, total, onChange }) {
   // 페이지가 1개뿐이면 페이지네이션을 표시하지 않음

@@ -23,7 +23,7 @@
 
 import './QuestionForm.css';
 import { Link } from 'react-router-dom';
-import nameicon from '@/assets/images/nameicon.png';
+import nameicon from '@/assets/images/img-input-name.png';
 
 function QuestionForm() {
   return (

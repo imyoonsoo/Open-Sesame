@@ -1,5 +1,5 @@
 import './SortDropdown.css'
-import ArrowDown from '@/assets/images/arrowDown.svg'
+import ArrowDown from '@/assets/icons/icon-arrow-down.svg'
 
 function SortDropdown({ value, options, onChange }) {
   return (

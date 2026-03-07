@@ -1,5 +1,5 @@
 import './HomePage.css';
-import papercupimg from '@/assets/images/papercupimg.png';
+import papercupimg from '@/assets/images/img-decoration-papercup.png';
 import GoQuestionButton from './components/GoQuestionButton/GoQuestionButton';
 import LogoBotton from './components/LogoBotton/LogoBotton';
 import QuestionForm from './components/QuestionForm/QuestionForm';

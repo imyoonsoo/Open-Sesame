@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useShare } from '@/hooks/useShare';
 import '../PostPage/PostPage.css';
-import Profile from '@/assets/images/Profile.svg';
+import Profile from '@/assets/images/img-profile.svg';
 import PostHeader from './components/PostHeader';
 import NoQuestion from './components/NoQuestion';
 import QuestionButton from './components/QuestionButton';

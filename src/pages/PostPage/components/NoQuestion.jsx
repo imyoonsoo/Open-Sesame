@@ -1,6 +1,6 @@
 import './NoQuestion.css';
-import Inbox from '@/assets/images/Inbox.svg';
-import Question from '@/assets/images/Question.svg';
+import Inbox from '@/assets/icons/icon-inbox.svg';
+import Question from '@/assets/icons/icon-question.svg';
 
 function NoQuestion() {
   return (

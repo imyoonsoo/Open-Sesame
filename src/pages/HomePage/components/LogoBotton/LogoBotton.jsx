@@ -1,6 +1,6 @@
 import './LogoBotton.css';
 import { Link } from 'react-router-dom';
-import logoImg from '@/assets/images/logoimg.png';
+import logoImg from '@/assets/images/img-logo-large.png';
 
 function LogoBotton() {
   return (

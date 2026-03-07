@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import Messages from "@/assets/images/Messages.svg";
+import Messages from "@/assets/icons/icon-messages-alt.svg";
 import './FeedCard.css';
 
 function FeedCard({ item }) {

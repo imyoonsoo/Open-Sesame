@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './Modal.css';
-import CloseIcon from '@/assets/icons/Close-icon.svg';
-import MessagesIcon from '@/assets/icons/Messages-icon.svg';
-import DefaultImg from '@/assets/icons/Default-image.svg';
+import CloseIcon from '@/assets/icons/icon-close.svg';
+import MessagesIcon from '@/assets/icons/icon-messages.svg';
+import DefaultImg from '@/assets/images/img-profile-default.svg';
 
 export function Modal() {
   const [isModalInputEmpty, setIsModalInputEmpty] = useState(true);
