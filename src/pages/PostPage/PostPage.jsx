@@ -12,12 +12,17 @@ function PostPage() {
     profile: Profile,
   });
 
-  const [isToast, setIsToast] = useState(false); // 토스트 기본 설정 false
+  const [isToast, setIsToast] = useState(false);
   const { copyLink, shareKakao, shareFacebook } = useShare(setIsToast);
 
   return (
     <>
-      <PostHeader {...data} />
+      <PostHeader
+        {...data}
+        linkIcon={copyLink}
+        kakaoIcon={shareKakao}
+        facebookIcon={shareFacebook}
+      />
       {isToast && <div className="toast-msg">URL이 복사되었습니다!</div>}
       <NoQuestion />
       <QuestionButton />

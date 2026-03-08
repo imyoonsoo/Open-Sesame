@@ -1,12 +1,11 @@
 import '../components/PostHeader.css';
 import OpenMindHeader from '../../../assets/images/OpenMindHeader.png';
 import OpenMindLogo from '../../../assets/images/OpenMindLogo.svg';
-import LinkVector from '../../../assets/images/Link.svg';
+import linkVector from '../../../assets/images/Link.svg';
 import KakaoVector from '../../../assets/images/Kakaotalk.svg';
-import FacebackVector from '../../../assets/images/Facebook.svg';
-import { useState, useEffect } from 'react';
+import facebookVector from '../../../assets/images/Facebook.svg';
 
-/* 코드 구조가 반복되어 ShareButton 추가 */
+/* ShareButton 컴포넌트 추가 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
   return (
     <button className={className} onClick={onClick}>
@@ -15,13 +14,7 @@ function ShareButton({ className, icon, alt, onClick }) {
   );
 }
 
-function PostHeader({
-  name,
-  profile,
-  onClick_Link,
-  onClick_Kakao,
-  onClick_Facebook,
-}) {
+function PostHeader({ name, profile, linkIcon, kakaoIcon, facebookIcon }) {
   return (
     <div id="postpage-header">
       <img className="post-header" src={OpenMindHeader} alt="OpenMind 헤더" />
@@ -33,21 +26,21 @@ function PostHeader({
         <div className="post-share">
           <ShareButton
             className="post-linkBtn"
-            icon={LinkVector}
+            icon={linkVector}
             alt="링크"
-            onClick={onClick_Link}
+            onClick={linkIcon}
           />
           <ShareButton
             className="post-kakaoBtn"
             icon={KakaoVector}
             alt="카카오"
-            onClick={onClick_Kakao}
+            onClick={kakaoIcon}
           />
           <ShareButton
             className="post-facebookBtn"
-            icon={FacebackVector}
+            icon={facebookVector}
             alt="페이스북"
-            onClick={onClick_Facebook}
+            onClick={facebookIcon}
           />
         </div>
       </div>
