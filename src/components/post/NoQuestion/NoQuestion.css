@@ -1,0 +1,79 @@
+#mailbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 327px;
+  height: auto;
+  padding: 16px 24px;
+  gap: 8px;
+  border-radius: 16px;
+  border: 1px solid var(--Brown-20, #e4d5c9);
+  background: var(--Brown-10, #f5f1ee);
+  margin: 150px auto;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.questionIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.questionState-text {
+  color: var(--Brown-40, #542f1a);
+  font-family: Actor;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.inboxIcon {
+  width: 114px;
+  height: 118px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+/* 태블릿 */
+@media (min-width: 768px) {
+  #mailbox {
+    max-width: 704px;
+    max-height: 330px;
+    margin-top: 200px;
+    margin-bottom: 100px;
+  }
+  .questionIcon {
+    width: 24px;
+    height: 24px;
+  }
+  .questionState-text {
+    font-size: 20px;
+    line-height: 25px;
+  }
+  .inboxIcon {
+    width: 150px;
+    height: 154px;
+  }
+}
+
+/* PC */
+@media (min-width: 1200px) {
+  #mailbox {
+    max-width: 716px;
+    max-height: 330px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  #mailbox {
+    margin-top: 250px;
+  }
+}

@@ -1,0 +1,29 @@
+.go-question-button {
+  width: fit-content;
+  min-width: 170px;
+  height: 46px;
+  padding: 12px 24px;
+  border: 1px solid #542F1A;
+  border-radius: 8px;
+  background-color: #F5F1EE;
+  color: #542F1A;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+
+  white-space: nowrap;
+  box-sizing: border-box;
+  text-decoration: none;
+  flex: none;
+}
+
+.go-question-button:hover {
+  border-color: #3A1F12;
+  box-shadow: 0 0 0 1px #3A1F12;
+}

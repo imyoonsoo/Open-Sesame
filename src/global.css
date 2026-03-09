@@ -1,49 +1,17 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-
 /* 모바일 */
 
 :root {
-  /* Grayscale */
-  --Grayscale-60: #000000;
-  --Grayscale-50: #515151;
-  --Grayscale-40: #818181;
-  --Grayscale-30: #cfcfcf;
-  --Grayscale-20: #f9f9f9;
-  --Grayscale-10: #ffffff;
+  --gray-900: #1b1d1f;
+  --gray-800: #26282b;
+  --gray-600: #454c53;
+  --gray-500: #72787f;
+  --gray-400: #9ea4a8;
+  --gray-200: #e5e7eb;
+  --gray-100: #e8ebed;
+  --gray-50: #f7f7f8;
 
   /* Primary color */
-  --Brown-50: #341909;
-  --Brown-40: #542f1a;
-  --Brown-30: #c7bbb5;
-  --Brown-20: #e4d5c9;
-  --Brown-10: #f5f1ee;
-
-  /* Point color */
-  --Blue-50: #1877f2;
-  --Yellow-50: #fee500;
-  --Red-50: #b93333;
-
-  /* font-family */
-  font-family: 'Pretendard', sans-serif;
-
-  /* font-size */
-  --font-h1: 40px;
-  --font-h2: 32px;
-  --font-h3: 24px;
-  --font-body1: 20px;
-  --font-body2: 18px;
-  --font-body3: 16px;
-  --font-caption1: 14px;
-
-  /* font-weight */
-  --weight-regular: 400;
-  --weight-medium: 500;
-  --weight-bold: 700;
-
-  /* box-shadow */
-  --shadow-1: 0 1px 4px 0 rgba(140, 140, 140, 0.25);
-  --shadow-2: 0 2px 4px 0 rgba(140, 140, 140, 0.25);
-  --shadow-3: 0 4px 4px 0 rgba(140, 140, 140, 0.25);
+  --blue: #3692ff;
 
   /* Layout dimensions */
   --header-height: 70px;
@@ -86,15 +54,10 @@ svg {
   vertical-align: bottom;
 }
 
-html {
-  font-size: 16px;
-}
-
 body {
   color: #374151;
   word-break: keep-all;
-  font-family: 'Pretendard', sans-serif;
-  background-color: var(--Grayscale-20);
+  font-family: "Pretendard", sans-serif;
 }
 
 #copyright {
