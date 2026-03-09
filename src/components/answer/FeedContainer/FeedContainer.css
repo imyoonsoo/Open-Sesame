@@ -1,0 +1,88 @@
+.feed-center-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.feed-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 327px;
+  margin: 30px auto;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  color: var(--Brown-40, #542f1a);
+  font-weight: 400;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-bottom: 12px;
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(21%) sepia(18%) saturate(3078%) hue-rotate(343deg) brightness(93%) contrast(92%);
+}
+
+#feed-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: auto;
+  padding: 16px 24px;
+  gap: 8px;
+  border-radius: 16px;
+  border: 1px solid var(--Brown-20, #e4d5c9);
+  background: var(--Brown-10, #f5f1ee);
+  box-sizing: border-box;
+}
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto;
+  margin-bottom: 16px;
+}
+
+.message-icon {
+  width: 24px;
+  height: 24px;
+  filter: invert(21%) sepia(18%) saturate(3078%) hue-rotate(343deg) brightness(93%) contrast(92%);
+}
+
+.message-text {
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--Brown-40, #542f1a);
+}
+
+/* 태블릿 */
+@media (min-width: 768px) {
+  .feed-page-wrapper {
+    max-width: 704px;
+    margin-top: 200px;
+    margin-bottom: 100px;
+  }
+}
+
+/* PC */
+@media (min-width: 1200px) {
+  .feed-page-wrapper {
+    max-width: 716px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 767px) {
+  .feed-page-wrapper {
+    margin-top: 250px;
+  }
+}

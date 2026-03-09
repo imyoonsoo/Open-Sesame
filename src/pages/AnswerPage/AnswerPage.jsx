@@ -1,5 +1,12 @@
+import React from 'react';
+import FeedContainer from '@/components/answer/FeedContainer/FeedContainer';
+
 function AnswerPage() {
-  return <div>Answer Page</div>;
+  return (
+    <div>
+      <FeedContainer />
+    </div>
+  );
 }
 
 export default AnswerPage;
