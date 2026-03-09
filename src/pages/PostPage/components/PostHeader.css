@@ -28,7 +28,7 @@
 }
 
 .post-name {
-  color: var(--Grayscale-60, #000);
+  color: var(--Grayscale-60, #1e1e1e);
   font-feature-settings:
     'liga' off,
     'clig' off;
