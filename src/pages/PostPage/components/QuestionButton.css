@@ -6,14 +6,18 @@
 }
 
 .questionBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 208px;
   height: 54px;
+  gap: 8px;
   background: var(--Brown-40, #542f1a);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border-radius: 200px;
 }
 
-#questionBtn-box .text {
+.questionBtn p {
   color: var(--Grayscale-10, #fff);
   font-variant-ligatures: none;
   font-family: Actor;
@@ -23,11 +27,25 @@
   line-height: 25px;
 }
 
-/* 모바일(767이하) */
+.text-mobile {
+  display: none;
+}
+
+/* 반응형 */
+/* 태블릿 ( 768px ~ 1199px ) */
+@media (max-width: 1199px) {
+}
+/* 모바일 ( ~ 767px ) */
 @media (max-width: 767px) {
   .questionBtn {
     display: inline-flex;
-    justify-content: center;
-    align-items: center;
+    width: 123px;
+  }
+  .text-not-mobile {
+    display: none;
+  }
+
+  .text-mobile {
+    display: block;
   }
 }

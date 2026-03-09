@@ -5,7 +5,7 @@ import linkVector from '../../../assets/images/Link.svg';
 import KakaoVector from '../../../assets/images/Kakaotalk.svg';
 import facebookVector from '../../../assets/images/Facebook.svg';
 
-/* ShareButton 컴포넌트 추가 (링크, 카카오, 페이스북) */
+/* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
   return (
     <button className={className} onClick={onClick}>

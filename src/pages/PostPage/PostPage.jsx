@@ -17,15 +17,19 @@ function PostPage() {
 
   return (
     <>
-      <PostHeader
-        {...data}
-        linkIcon={copyLink}
-        kakaoIcon={shareKakao}
-        facebookIcon={shareFacebook}
-      />
-      {isToast && <div className="toast-msg">URL이 복사되었습니다!</div>}
-      <NoQuestion />
-      <QuestionButton />
+      <div className="postpage-wrapper">
+        <PostHeader
+          {...data}
+          linkIcon={copyLink}
+          kakaoIcon={shareKakao}
+          facebookIcon={shareFacebook}
+        />
+        {isToast && <div className="toast-msg">URL이 복사되었습니다!</div>}
+        <div className="content-area">
+          <NoQuestion />
+          <QuestionButton />
+        </div>
+      </div>
     </>
   );
 }

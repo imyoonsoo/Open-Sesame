@@ -1,13 +1,40 @@
+.postpage-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 220px 24px 16px;
+  gap: 16px;
+  min-height: 0;
+}
+
 .toast-msg {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-
   background: #333;
   color: white;
   padding: 16px 24px;
   border-radius: 8px;
   z-index: 9999;
   white-space: nowrap;
+}
+
+/* 반응형 */
+/* PC ( 1200px ~ ) */
+@media (min-width: 1200px) {
+}
+
+/* 태블릿 ( 768px ~ 1199px ) */
+@media (max-width: 1199px) {
+}
+
+@media (max-width: 767px) {
 }
