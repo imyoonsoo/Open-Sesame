@@ -3,6 +3,7 @@ import './Modal.css';
 import CloseIcon from '@/assets/icons/icon-close.svg';
 import MessagesIcon from '@/assets/icons/icon-messages.svg';
 import DefaultImg from '@/assets/images/img-profile-default.svg';
+import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
 
 export function Modal() {
   const [isModalInputEmpty, setIsModalInputEmpty] = useState(true);
@@ -29,7 +30,7 @@ export function Modal() {
         <span>아초는고양이</span>
       </div>
       <div className="modal__body">
-        <textarea
+        <InputTextArea
           className="modal__input"
           onChange={handleModalInput}
           placeholder="질문을 입력해주세요"

@@ -1,4 +1,4 @@
-import { Modal } from '@/pages/PostPage/components/Modal/Modal';
+import { Modal } from '@/components/common/Modal/Modal';
 
 function DevPage() {
   return (

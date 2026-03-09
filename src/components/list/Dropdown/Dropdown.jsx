@@ -1,7 +1,7 @@
-import './SortDropdown.css'
+import './Dropdown.css'
 import ArrowDown from '@/assets/icons/icon-arrow-down.svg'
 
-function SortDropdown({ value, options, onChange }) {
+function Dropdown({ value, options, onChange }) {
   return (
     // select와 화살표 이미지를 함께 배치하기 위한 wrapper
     <div className="sortSelectWrap">
@@ -24,4 +24,4 @@ function SortDropdown({ value, options, onChange }) {
   )
 }
 
-export default SortDropdown
+export default Dropdown

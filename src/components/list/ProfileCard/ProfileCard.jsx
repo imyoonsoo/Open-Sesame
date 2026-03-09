@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import Messages from "@/assets/icons/icon-messages-alt.svg";
-import './FeedCard.css';
+import './ProfileCard.css';
 
-function FeedCard({ item }) {
+function ProfileCard({ item }) {
   return (
     // 카드 전체를 클릭하면 해당 subject의 페이지로 이동
     <Link to={`/post/${item.id}`} className="feed-card">
@@ -25,4 +25,4 @@ function FeedCard({ item }) {
   );
 }
 
-export default FeedCard;
+export default ProfileCard;

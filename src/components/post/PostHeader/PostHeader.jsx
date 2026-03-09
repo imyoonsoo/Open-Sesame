@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import '../components/PostHeader.css';
+import './PostHeader.css';
 import OpenMindHeader from '@/assets/images/img-header-openmind.png';
 import OpenMindLogo from '@/assets/images/img-logo-openmind.svg';
 import LinkVector from '@/assets/icons/icon-share-link.svg';

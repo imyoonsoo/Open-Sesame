@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSubjects } from '@/api/openmindApi';
 
-import ListTopBar from './components/list/ListTopBar';
-import ListHeader from './components/list/ListHeader';
-import FeedGrid from './components/card/FeedGrid';
-import Pagination from './pagination/Pagination';
+import ListTopBar from '@/components/list/ListTopBar/ListTopBar';
+import ListHeader from '@/components/list/ListHeader/ListHeader';
+import FeedGrid from '@/components/list/FeedGrid/FeedGrid';
+import Pagination from '@/components/list/Pagination/Pagination';
 
 import './ListPage.css';
 

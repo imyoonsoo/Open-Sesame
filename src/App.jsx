@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "@/pages/HomePage";
-import ListPage from "@/pages/ListPage/ListPage";
-import PostPage from "@/pages/PostPage/PostPage";
-import AnswerPage from "@/pages/AnswerPage/AnswerPage";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from '@/pages/HomePage';
+import ListPage from '@/pages/ListPage/ListPage';
+import PostPage from '@/pages/PostPage/PostPage';
+import AnswerPage from '@/pages/AnswerPage/AnswerPage';
 
 function App() {
   return (

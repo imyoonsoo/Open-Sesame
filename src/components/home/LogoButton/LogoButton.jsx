@@ -1,8 +1,8 @@
-import './LogoBotton.css';
+import './LogoButton.css';
 import { Link } from 'react-router-dom';
 import logoImg from '@/assets/images/img-logo-large.png';
 
-function LogoBotton() {
+function LogoButton() {
   return (
     <div className="logo-botton">
       <Link to="/" className="logo-link">
@@ -12,4 +12,4 @@ function LogoBotton() {
   );
 }
 
-export default LogoBotton;
+export default LogoButton;

@@ -34,15 +34,7 @@
 
 .modal__input {
   margin-top: 12px;
-  padding: 16px;
-  width: 100%;
   height: 180px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
-  color: #818181;
-  background-color: #f9f9f9;
-  resize: none;
 }
 
 .modal__submit-button {

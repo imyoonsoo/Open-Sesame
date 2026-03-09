@@ -1,0 +1,38 @@
+.input-field-wrapper {
+  width: 100%;
+  height: 48px;
+  border: 1px solid #818181;
+  border-radius: 10px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.input-field-wrapper:focus-within {
+  border-color: #542f1a;
+}
+
+.input-field-icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.input-field {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 14px;
+  color: #333333;
+}
+
+.input-field::placeholder {
+  color: #b3b3b3;
+}

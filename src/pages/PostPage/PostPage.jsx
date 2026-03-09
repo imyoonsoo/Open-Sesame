@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useShare } from '@/hooks/useShare';
 import '../PostPage/PostPage.css';
 import Profile from '@/assets/images/img-profile.svg';
-import PostHeader from './components/PostHeader';
-import NoQuestion from './components/NoQuestion';
-import QuestionButton from './components/QuestionButton';
+import PostHeader from '@/components/post/PostHeader/PostHeader';
+import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
+import QuestionButton from '@/components/post/QuestionButton/QuestionButton';
 
 function PostPage() {
   const [data, setData] = useState({

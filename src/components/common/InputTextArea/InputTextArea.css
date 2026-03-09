@@ -1,0 +1,22 @@
+.input-textarea {
+  padding: 16px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.5;
+  resize: none;
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.input-textarea::placeholder {
+  color: #818181;
+  transition: opacity 0.3s ease;
+}
+
+.input-textarea:focus {
+  border: 1px solid #542f1a;
+}

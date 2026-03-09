@@ -1,8 +1,8 @@
 import './HomePage.css';
 import papercupimg from '@/assets/images/img-decoration-papercup.png';
-import GoQuestionButton from './components/GoQuestionButton/GoQuestionButton';
-import LogoBotton from './components/LogoBotton/LogoBotton';
-import QuestionForm from './components/QuestionForm/QuestionForm';
+import GoQuestionButton from '@/components/home/GoQuestionButton/GoQuestionButton';
+import LogoButton from '@/components/home/LogoButton/LogoButton';
+import QuestionForm from '@/components/home/QuestionForm/QuestionForm';
 
 function HomePage() {
   return (
@@ -12,7 +12,7 @@ function HomePage() {
       </div>
 
       <div className="main-area">
-        <LogoBotton />
+        <LogoButton />
         <QuestionForm />
       </div>
 
