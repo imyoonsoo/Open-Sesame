@@ -1,17 +1,20 @@
-/* 기본(모바일) */
+/* PC (기본 설정) */
 #postpage-header {
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .post-header {
   width: 100%;
-  max-width: 1200px;
   height: auto;
+  display: block;
+  max-height: 25vh;
   object-fit: cover;
+}
+
+.post-logo {
+  width: clamp(124px, 14.1vw, 170px);
+  height: clamp(49px, 5.6vw, 67px);
 }
 
 .post-content {
@@ -24,28 +27,29 @@
   gap: 8px;
 }
 
-.post-logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-}
-.post-profile {
-  width: 104px;
-  height: 104px;
-  border-radius: 50%;
-}
 .post-name {
-  font-size: 24px;
-  color: #000000;
-  margin: 0;
+  color: var(--Grayscale-60, #1e1e1e);
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
+  font-family: Actor;
+  font-style: normal;
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: clamp(30px, 3vw, 40px);
 }
+
+.post-profile {
+  width: clamp(94px, 8vw, 140px);
+  height: clamp(94px, 8vw, 140px);
+}
+
 .post-share {
   display: flex;
+  margin-top: 10px;
   gap: 12px;
 }
 
-/* 버튼 공통 스타일 유지 */
 .post-linkBtn,
 .post-kakaoBtn,
 .post-facebookBtn {
@@ -57,7 +61,6 @@
   justify-content: center;
 }
 
-/* 각 버튼 배경색 */
 .post-linkBtn {
   background: #542f1a;
 }
@@ -70,7 +73,6 @@
   background: #1877f2;
 }
 
-/* 버튼 속 벡터 크기 */
 .post-linkVector,
 .post-kakaoVector,
 .post-facebookVector {
@@ -78,13 +80,11 @@
   height: 18px;
 }
 
-/* 반응형: 화면이 커질 때 크기만 조절 */
-@media (min-width: 768px) {
-  .post-logo {
-    width: 170px;
-  }
-  .post-profile {
-    width: 136px;
-    height: 136px;
-  }
+/* 반응형 */
+/* 태블릿 ( 768px ~ 1199px ) */
+@media (max-width: 1199px) {
+}
+
+/* 모바일 ( ~ 767px ) */
+@media (max-width: 767px) {
 }

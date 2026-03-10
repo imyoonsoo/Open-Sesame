@@ -1,17 +1,17 @@
+/* PC (기본 설정) */
 #mailbox {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 716px;
+  min-height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 327px;
-  height: auto;
+  align-items: center;
+  margin: 0 auto;
   padding: 16px 24px;
-  gap: 8px;
   border-radius: 16px;
   border: 1px solid var(--Brown-20, #e4d5c9);
   background: var(--Brown-10, #f5f1ee);
-  margin: 150px auto;
 }
 
 .header {
@@ -20,60 +20,59 @@
   align-items: center;
   gap: 8px;
   margin: 0 auto;
+  margin-bottom: 20px;
 }
 
 .questionIcon {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
+  filter: brightness(0.3);
 }
 
 .questionState-text {
   color: var(--Brown-40, #542f1a);
+  font-feature-settings:
+    'liga' off,
+    'clig' off;
   font-family: Actor;
-  font-size: 18px;
+  font-size: 20px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-}
-.inboxIcon {
-  width: 114px;
-  height: 118px;
-  margin: 0 auto;
-  justify-content: center;
+  font-weight: 500;
+  line-height: 25px;
 }
 
-/* 태블릿 */
-@media (min-width: 768px) {
+.inboxIcon {
+  width: 150px;
+  height: 154px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 반응형 */
+/* 태블릿 ( 768px ~ 1199px ) */
+@media (max-width: 1199px) {
   #mailbox {
     max-width: 704px;
-    max-height: 330px;
-    margin-top: 200px;
-    margin-bottom: 100px;
+  }
+}
+
+/* 모바일 ( ~ 767px ) */
+@media (max-width: 767px) {
+  #mailbox {
+    max-width: 327px;
   }
   .questionIcon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
   }
   .questionState-text {
-    font-size: 20px;
-    line-height: 25px;
+    font-size: 18px;
+    line-height: 24px;
   }
   .inboxIcon {
-    width: 150px;
-    height: 154px;
-  }
-}
-
-/* PC */
-@media (min-width: 1200px) {
-  #mailbox {
-    max-width: 716px;
-    max-height: 330px;
-  }
-}
-
-@media (min-width: 375px) and (max-width: 767px) {
-  #mailbox {
-    margin-top: 250px;
+    width: 114px;
+    height: 118px;
   }
 }
