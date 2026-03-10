@@ -1,9 +1,9 @@
-import { Modal } from '@/components/common/Modal/Modal';
+import { AlertModal } from '@/components/common/AlertModal/AlertModal';
 
 function DevPage() {
   return (
     <>
-      <Modal />
+      <AlertModal />
     </>
   );
 }
