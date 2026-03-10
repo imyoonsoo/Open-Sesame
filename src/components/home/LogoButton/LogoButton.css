@@ -1,4 +1,4 @@
-.logo-botton {
+.logo-button {
   display: flex;
   justify-content: center;
   margin-top: 80px;
@@ -10,8 +10,19 @@
 }
 
 .logo-image {
-  width: 456px;
-  height: 180px;
+  width: min(60vw, 456px);
+  height: auto;
   object-fit: contain;
   cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .logo-button {
+    margin-top: 60px;
+  }
+
+  .logo-image {
+    width: min(68vw, 360px);
+  }
+}
+

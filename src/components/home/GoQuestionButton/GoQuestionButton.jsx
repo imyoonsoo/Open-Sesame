@@ -1,5 +1,5 @@
-import './GoQuestionButton.css';
 import { Link } from 'react-router-dom';
+import './GoQuestionButton.css';
 
 function GoQuestionButton() {
   return (

@@ -36,3 +36,21 @@
 .input-field::placeholder {
   color: #b3b3b3;
 }
+
+@media (max-width: 768px) {
+  .input-field-wrapper {
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 8px;
+  }
+
+  .input-field-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 6px;
+  }
+
+  .input-field {
+    font-size: 13px;
+  }
+}

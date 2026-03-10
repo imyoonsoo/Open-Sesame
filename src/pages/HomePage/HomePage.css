@@ -1,34 +1,62 @@
 .home-page {
   position: relative;
   min-height: 100vh;
-  padding: 40px 80px;
+  padding: 0;
   box-sizing: border-box;
-  background-color: #f5f5f5;
+  background-color: #f9f9f9;
   overflow: hidden;
 }
 
 .top-area {
-  position: relative;
-  z-index: 3;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
+  position: absolute;
+  top: 28px;
+  right: 32px;
+  z-index: 4;
 }
 
 .main-area {
   position: relative;
-  z-index: 2;
+  z-index: 3;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 50px;
+  gap: 16px;
 }
 
-.papercup-image {
+.mobile-button {
+  display: none;
+}
+
+.main-footer-image {
   position: absolute;
-  bottom: -20px;
   left: 50%;
+  bottom: 0;
   transform: translateX(-50%);
-  width: 80%;
+  width: min(92vw, 1100px);
+  max-height: 32vh;
+  height: auto;
   z-index: 1;
   pointer-events: none;
+}
+
+/* 화면줄이면 버튼 위치 바뀌게 */
+@media (max-width: 768px) {
+  .top-area {
+    display: none;
+  }
+
+  .mobile-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+  }
+
+  .main-footer-image {
+    width: 100vw;
+    max-height: 24vh;
+    height: auto;
+  }
 }
