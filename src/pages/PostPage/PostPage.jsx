@@ -1,15 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useShare } from '@/hooks/useShare';
 import '../PostPage/PostPage.css';
-import Profile from '@/assets/images/img-profile.svg';
 import PostHeader from '@/components/post/PostHeader/PostHeader';
 import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
 import QuestionButton from '@/components/post/QuestionButton/QuestionButton';
 
 function PostPage() {
   const [data, setData] = useState({
-    name: '아초는 고양이',
-    profile: Profile,
+    name: undefined,
+    profile: undefined,
   });
 
   const [isToast, setIsToast] = useState(false);

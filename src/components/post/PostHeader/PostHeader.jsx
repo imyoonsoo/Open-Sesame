@@ -1,12 +1,12 @@
 import './PostHeader.css';
-import LinkVector from '@/assets/images/icon-share-link.svg';
+import LinkVector from '@/assets/icons/icon-share-link.svg';
 import KakaoVector from '@/assets/icons/icon-share-kakao.svg';
 import FacebackVector from '@/assets/icons/icon-share-facebook.svg';
 
-/* 오픈참깨 에셋 */
+/* 열려라참깨 에셋 */
 import OpenSesameBackground from '@/assets/images/OpenSesame/OpenSesame_bg.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
-import OpenSesameDefaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
+import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
 
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
@@ -18,8 +18,8 @@ function ShareButton({ className, icon, alt, onClick }) {
 }
 
 function PostHeader({
-  name,
-  profile = OpenSesameDefaultprofile,
+  name = '아초는 고양이',
+  profile = Defaultprofile,
   linkIcon,
   kakaoIcon,
   facebookIcon,
