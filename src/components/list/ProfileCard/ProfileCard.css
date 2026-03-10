@@ -1,0 +1,35 @@
+.feed-card {
+  display: flex;
+  width: 220px;
+  height: 187px;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-radius: 16px;
+  border: 1px solid var(--Grayscale-40, #818181);
+  background: var(--Grayscale-10, #fff);
+}
+
+.feed-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.feed-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.feed-name {
+  font-size: 20px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.feed-meta {
+  margin-top: 6px;
+  color: var(--Grayscale-40);
+  font-size: 16px;
+}

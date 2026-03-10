@@ -1,0 +1,52 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 40px;
+}
+
+.page-btn {
+  min-width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  color: var(--GreyScale-40, #818181);
+  text-decoration: none !important;
+}
+
+/* 페이지 hover */
+.page-btn:hover:not(:disabled) {
+  background-color: #f2f2f2;
+}
+
+/* 현재 페이지 */
+.page-btn.active {
+  font-weight: 700;
+  color: var(--Brown-40, #542f1a);
+  background-color: #f5f1ee;
+}
+
+/* 화살표 버튼 */
+.page-btn.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 화살표 이미지 */
+.page-btn.arrow img {
+  width: 16px;
+  height: 16px;
+}
+
+/* disabled */
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}

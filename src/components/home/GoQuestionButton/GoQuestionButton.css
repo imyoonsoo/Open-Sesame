@@ -1,0 +1,30 @@
+.go-questionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 18px;
+
+  border: 1px solid #542f1a;
+  border-radius: 12px;
+
+  background-color: #f5f1ee;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #542f1a;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.go-questionBtn::after {
+  content: '→';
+  font-size: 16px;
+}
+
+.go-questionBtn:hover {
+  background: #542f1a;
+  color: white;
+}

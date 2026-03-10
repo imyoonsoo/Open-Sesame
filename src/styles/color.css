@@ -1,0 +1,38 @@
+:root {
+  /* Primitive colors */
+  --gray-900: #1b1d1f;
+  --gray-800: #26282b;
+  --gray-600: #515151;
+  --gray-500: #818181;
+  --gray-400: #9ea4a8;
+  --gray-200: #cfcfcf;
+  --gray-100: #f9f9f9;
+  --gray-50: #f7f7f8;
+  --white: #ffffff;
+
+  --brown-100: #f5f1ee;
+  --brown-200: #e4d5c9;
+  --brown-300: #c7bbb5;
+  --brown-400: #542f1a;
+  --brown-500: #341909;
+
+  /* Semantic colors */
+  --color-bg: var(--white);
+  --color-bg-muted: var(--gray-50);
+
+  --color-text-primary: var(--brown-400);
+  --color-text-secondary: var(--gray-500);
+
+  --color-primary: var(--brown-400);
+  --color-secondary-dark: var(--brown-500);
+  --color-secondary-light: var(--brown-100);
+  --color-active-dark: var(--brown-500);
+  --color-active-light: var(--brown-200);
+  --color-disabled: var(--brown-300);
+
+  /* Brand colors */
+  --blue: #1877f2;
+  --yellow: #fee500;
+  --red: #b93333;
+  --orange: #e38500;
+}

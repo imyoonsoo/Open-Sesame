@@ -1,0 +1,25 @@
+[33m9b17be3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m)[m HEAD@{Mon Mar 9 15:47:03 2026}: reset: moving to ORIG_HEAD
+[33ma7e4a24[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{Mon Mar 9 15:38:33 2026}: pull origin develop: Fast-forward
+[33m9b17be3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m)[m HEAD@{Mon Mar 9 15:32:35 2026}: reset: moving to ORIG_HEAD
+[33ma7e4a24[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{Mon Mar 9 15:30:16 2026}: pull origin develop: Fast-forward
+[33m9b17be3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mdevelop[m[33m)[m HEAD@{Mon Mar 9 15:29:50 2026}: checkout: moving from feat/ListPage-api-pagination to develop
+[33ma886cf7[m[33m ([m[1;32mfeat/ListPage-api-pagination[m[33m)[m HEAD@{Sat Mar 7 12:39:18 2026}: commit: feat: OpenSesame 로고 디자인 추가
+[33m99a0738[m HEAD@{Sat Mar 7 12:37:21 2026}: commit: feat: 정렬버튼 sort 옵션 UI 수정 및 답변하기 버튼 추가
+[33m07f0b4b[m HEAD@{Sat Mar 7 11:21:23 2026}: commit (merge): merge: develop 브랜치 충돌 해결
+[33m0e35d6e[m HEAD@{Sat Mar 7 11:18:41 2026}: commit: docs: index.jsx 파일 수정
+[33mc336926[m[33m ([m[1;31morigin/feat/ListPage-api-pagination[m[33m, [m[1;32mfeat/ListPage[m[33m)[m HEAD@{Fri Mar 6 12:51:59 2026}: checkout: moving from feat/ListPage to feat/ListPage-api-pagination
+[33mc336926[m[33m ([m[1;31morigin/feat/ListPage-api-pagination[m[33m, [m[1;32mfeat/ListPage[m[33m)[m HEAD@{Fri Mar 6 12:48:51 2026}: reset: moving to ORIG_HEAD
+[33mc336926[m[33m ([m[1;31morigin/feat/ListPage-api-pagination[m[33m, [m[1;32mfeat/ListPage[m[33m)[m HEAD@{Fri Mar 6 12:46:51 2026}: commit: feat: ListPage UI 및 네비게이션, 정렬 기능 추가
+[33m1baf163[m HEAD@{Thu Mar 5 16:11:55 2026}: commit: feat: ListPage 구현
+[33mc59ba39[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Thu Mar 5 16:10:02 2026}: checkout: moving from main to feat/ListPage
+[33mc59ba39[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Thu Mar 5 16:08:11 2026}: checkout: moving from main to main
+[33mc59ba39[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{Thu Mar 5 13:59:40 2026}: commit: feat: vite 절대경로 추가
+[33mdf1a9b8[m HEAD@{Thu Mar 5 13:58:04 2026}: pull origin main: Fast-forward
+[33m7d926fa[m HEAD@{Wed Mar 4 17:30:17 2026}: commit: docs: vite.config 중복파일 삭제
+[33mb285ae3[m HEAD@{Wed Mar 4 17:16:10 2026}: rebase (finish): returning to refs/heads/main
+[33mb285ae3[m HEAD@{Wed Mar 4 17:14:11 2026}: rebase (continue): chore: initial project setup
+[33mfc7295a[m HEAD@{Wed Mar 4 17:12:13 2026}: pull origin main --rebase (start): checkout fc7295a91378c853cd36b84afa5c2b145eed6845
+[33m01797cd[m HEAD@{Wed Mar 4 17:11:05 2026}: rebase (finish): returning to refs/heads/main
+[33m01797cd[m HEAD@{Wed Mar 4 17:10:52 2026}: commit (amend): chore: initial project setup
+[33mfc7295a[m HEAD@{Wed Mar 4 17:05:22 2026}: pull origin main --rebase (start): checkout fc7295a91378c853cd36b84afa5c2b145eed6845
+[33mb40ba0f[m HEAD@{Wed Mar 4 17:04:49 2026}: commit (initial): chore: initial project setup
