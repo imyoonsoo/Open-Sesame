@@ -166,48 +166,14 @@ npm run format    # Prettier 포맷팅
 
 ## 👥 팀원 및 역할
 
-<table>
-  <tr>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="최유현"/><br />
-      <b>👑 최유현</b><br />
-      <sub>Team Leader</sub><br />
-      <sub>팀 리더 및 답변 페이지 구현</sub>
-    </td>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="이수진"/><br />
-      <b>🎨 이수진</b><br />
-      <sub>Designer</sub><br />
-      <sub>디자인 총괄 및 답변 목록 페이지 구현</sub>
-    </td>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="김도욱"/><br />
-      <b>⚙️ 김도욱</b><br />
-      <sub>Developer</sub><br />
-      <sub>프로젝트 세팅 및 답변 목록 페이지 구현</sub>
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="서윤수"/><br />
-      <b>💻 서윤수</b><br />
-      <sub>Developer</sub><br />
-      <sub>답변 페이지 구현</sub>
-    </td>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="이차현"/><br />
-      <b>🏗️ 이차현</b><br />
-      <sub>Developer</sub><br />
-      <sub>프로젝트 구조 담당 및 공통 컴포넌트 구현</sub>
-    </td>
-    <td align="center" width="150px">
-      <img src="https://via.placeholder.com/100" width="100px" alt="최문경"/><br />
-      <b>🖥️ 최문경</b><br />
-      <sub>Developer</sub><br />
-      <sub>메인 페이지 구현</sub>
-    </td>
-  </tr>
-</table>
+| 팀원 | 역할 | 담당 업무 |
+|------|------|-----------|
+| **최유현** | 팀장 | 팀 리더 및 답변 페이지 구현 |
+| **이수진** | 팀원 | 디자인 총괄 및 답변 목록 페이지 구현 |
+| **김도욱** | 팀원 | 프로젝트 세팅 및 답변 목록 페이지 구현 |
+| **서윤수** | 팀원 | 답변 페이지 구현 |
+| **이차현** | 팀원 | 프로젝트 구조 담당 및 공통 컴포넌트 구현 |
+| **최문경** | 팀원 | 메인 페이지 구현 |
 
 ---
 
