@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSubjects } from '@/api/openmindApi';
 
@@ -27,14 +27,34 @@ function ListPage() {
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  // 검색창에 입력 중인 값
+  const [searchInput, setSearchInput] = useState('');
+
+  // 실제 검색에 적용되는 값
+  const [searchKeyword, setSearchKeyword] = useState('');
+
+  const handleGoHome = () => navigate('/');
+
+  const handleGoAnswer = () => {
+    // HomePage에서 생성한 subject id가 있으면 답변 페이지로 이동
+    const mySubjectId = localStorage.getItem('openmind_subject_id');
+
+    if (!mySubjectId) navigate('/');
+    else navigate(`/post/${mySubjectId}/answer`);
+  };
 
   const handleChangeSort = (nextSort) => {
     // 정렬이 바뀌면 1페이지부터 다시
     setSearchParams({ page: '1', sort: nextSort });
   };
-
+  
   const handleChangePage = (nextPage) => {
     setSearchParams({ page: String(nextPage), sort });
+  };
+
+  const handleSubmitSearch = () => {
+    // Enter를 눌렀을 때만 검색어 적용
+    setSearchKeyword(searchInput);
   };
 
   useEffect(() => {
@@ -103,30 +123,47 @@ function ListPage() {
     // page나 sort가 바뀔 때마다 다시 목록을 불러와야 함
   }, [page, sort]);
 
+  // Enter로 확정된 검색어 기준으로만 필터링
+  const filteredSubjects = useMemo(() => {
+    return subjects.filter((item) =>
+      item.name.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+  }, [subjects, searchKeyword]);
+
   return (
     <div className="list-page">
-      <ListTopBar />
+      {/* 상단 네비게이션 */}
+      <ListTopBar onClickLogo={handleGoHome} onClickGoAnswer={handleGoAnswer} />
 
       <div className="list-container">
+        {/* 제목 + 정렬 + 검색 */}
         <ListHeader
-          title="질문하고 싶은 참깨는 누구인가요?!"
+          title="질문하고 싶은 참깨는 누구인가요?"
           sort={sort}
           options={SORT_OPTIONS}
           onChangeSort={handleChangeSort}
+          searchInput={searchInput}
+          onChangeSearchInput={setSearchInput}
+          onSubmitSearch={handleSubmitSearch}
         />
 
+        {/* 로딩 상태 */}
         {loading && <div className="list-state">로딩 중…</div>}
+
+        {/* 에러 상태 */}
         {!loading && errorMsg && (
           <div className="list-state error">{errorMsg}</div>
         )}
 
+        {/* 카드 목록 */}
         {!loading && !errorMsg && (
           <FeedGrid
-            items={subjects}
+            items={filteredSubjects}
             onClickCard={(id) => navigate(`/post/${id}`)}
           />
         )}
 
+        {/* 페이지네이션 */}
         <Pagination
           current={page}
           total={totalPages}
