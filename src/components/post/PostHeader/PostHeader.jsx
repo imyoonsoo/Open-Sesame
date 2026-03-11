@@ -7,6 +7,7 @@ import FacebackVector from '@/assets/icons/icon-share-facebook.svg';
 import OpenSesameBackground from '@/assets/images/OpenSesame/OpenSesame_bg.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
+import { useNavigate } from 'react-router-dom';
 
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
@@ -24,16 +25,23 @@ function PostHeader({
   kakaoIcon,
   facebookIcon,
 }) {
+  const navigate = useNavigate();
   return (
     <div id="postpage-header">
       <img
         className="post-header"
         src={OpenSesameBackground}
         alt="OpenMind 헤더"
+        onClick={() => navigate('/')}
       />
 
       <div className="post-content">
-        <img className="post-logo" src={OpenSesameLogo} alt="OpenMind 로고" />
+        <img
+          className="post-logo"
+          src={OpenSesameLogo}
+          alt="OpenMind 로고"
+          onClick={() => navigate('/')}
+        />
         <img className="post-profile" src={profile} alt="OpenMind 프로필" />
         <p className="post-name">{name}</p>
         <div className="post-share">

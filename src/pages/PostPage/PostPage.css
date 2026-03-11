@@ -16,15 +16,34 @@
 
 .toast-msg {
   position: fixed;
-  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  background: #333;
-  color: white;
-  padding: 16px 24px;
-  border-radius: 8px;
+  bottom: calc(30px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 24px);
+  opacity: 0;
+  transition:
+    transform 250ms ease,
+    opacity 250ms ease;
   z-index: 9999;
+  padding: 12px 20px;
+  min-width: 200px;
+  min-height: 10px;
+  font-size: 12px;
+  line-height: 18px;
+  border-radius: 24px;
+  background: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  text-align: center;
   white-space: nowrap;
+}
+
+.toast-msg.toast-in {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.toast-msg.toast-out {
+  transform: translate(-50%, 24px);
+  opacity: 0;
 }
 
 /* 반응형 */

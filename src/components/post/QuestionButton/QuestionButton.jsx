@@ -7,7 +7,7 @@ function QuestionButton() {
         <button
           className="questionBtn"
           onClick={() => {
-            /* 질문하기 모달과 연결  */
+            /* 질문 작성하기 연결 */
           }}
         >
           <p className="text-not-mobile">질문 작성하기</p>

@@ -10,9 +10,11 @@
   display: block;
   max-height: 25vh;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .post-logo {
+  cursor: pointer;
   width: clamp(124px, 14.1vw, 170px);
   height: clamp(49px, 5.6vw, 67px);
 }
@@ -42,6 +44,7 @@
 .post-profile {
   width: clamp(94px, 8vw, 140px);
   height: clamp(94px, 8vw, 140px);
+  cursor: pointer;
 }
 
 .post-share {
