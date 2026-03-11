@@ -55,7 +55,6 @@
   margin-top: 8px;
   width: 100%;
   height: 52px;
-  border: 1px dashed var(--gray-400);
   border-radius: 12px;
   background-color: var(--gray-50);
   color: var(--gray-600);
@@ -63,12 +62,6 @@
   font-weight: var(--font-weight-regular);
   cursor: pointer;
   transition: all 0.3s ease;
-}
-
-.modal__file-button:hover {
-  border-color: var(--color-primary);
-  background-color: var(--brown-100);
-  color: var(--color-primary);
 }
 
 /* 파일 프리뷰 */
@@ -80,7 +73,6 @@
   padding: 12px 16px;
   border-radius: 12px;
   background-color: var(--gray-50);
-  border: 1px solid var(--gray-200);
 }
 
 .modal__file-thumbnail {
@@ -115,19 +107,12 @@
   flex-shrink: 0;
   width: 28px;
   height: 28px;
-  padding: 4px;
   border: none;
-  border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
-  transition: background-color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.modal__file-remove-button:hover {
-  background-color: var(--gray-200);
 }
 
 .modal__file-remove-button img {

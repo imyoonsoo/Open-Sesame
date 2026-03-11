@@ -1,15 +1,21 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import './Modal.css';
 import CloseIcon from '@/assets/icons/icon-close.svg';
 import MessagesIcon from '@/assets/icons/icon-messages.svg';
 import DefaultImg from '@/assets/images/img-profile-default.svg';
 import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
+import { useFileUpload } from '@/hooks/useFileUpload';
 
 export function Modal() {
   const [message, setMessage] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
-  const fileInputRef = useRef(null);
+  const {
+    selectedFile,
+    previewUrl,
+    fileInputRef,
+    handleFileButtonClick,
+    handleFileChange,
+    handleRemoveFile,
+  } = useFileUpload();
 
   const isSubmitDisabled = message.trim().length === 0 && selectedFile === null;
 
@@ -17,35 +23,9 @@ export function Modal() {
     setMessage(e.target.value);
   };
 
-  const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0] || null;
-    if (!file) return;
-
-    setSelectedFile(file);
-
-    if (file.type.startsWith('image/')) {
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-    }
-  };
-
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-    setFilePreview(null);
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
-  };
-
   const handleSubmit = async () => {
     setMessage('');
-    setSelectedFile(null);
-    setFilePreview(null);
+    handleRemoveFile();
   };
 
   return (
