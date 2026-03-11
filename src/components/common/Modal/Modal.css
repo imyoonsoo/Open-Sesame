@@ -7,22 +7,26 @@
   max-width: 600px;
   padding: 30px;
   border-radius: 24px;
-  box-shadow: 0 16px 20px 0 rgba(48, 48, 48, 0.62);
+  background-color: var(--white);
+  box-shadow: 0 16px 20px 0 rgba(27, 29, 31, 0.62);
 }
 
 .modal__header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
+
 .modal__title-wrapper {
   display: flex;
   flex-direction: row;
   gap: 8px;
+  align-items: center;
 }
+
 .modal__title {
-  margin-top: 3px;
-  font-size: 20px;
+  font-size: var(--font-size-20);
 }
 
 .modal__user-info {
@@ -30,6 +34,7 @@
   display: flex;
   gap: 4px;
   align-items: center;
+  font-size: var(--font-size-16);
 }
 
 .modal__input {
@@ -37,20 +42,105 @@
   height: 180px;
 }
 
+/* 파일 첨부 버튼 */
+.modal__file-input-hidden {
+  display: none;
+}
+
+.modal__file-button {
+  margin-top: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: var(--gray-50);
+  color: var(--gray-600);
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-regular);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 파일 프리뷰 */
+.modal__file-preview {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: var(--gray-50);
+}
+
+.modal__file-thumbnail {
+  flex-shrink: 0;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  background-color: var(--gray-200);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__file-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.modal__file-name {
+  flex: 1;
+  color: var(--gray-900);
+  font-size: var(--font-size-16);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-22);
+  overflow: hidden;
+}
+
+.modal__file-remove-button {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal__file-remove-button img {
+  width: 20px;
+  height: 20px;
+}
+
+/* 제출 버튼 */
 .modal__submit-button {
   margin-top: 8px;
-  padding: 12px;
+  padding: 16px;
   width: 100%;
   border-radius: 8px;
-  color: #ffffff;
-  background-color: #542f1a;
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--white);
+  font-size: var(--font-size-16);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal__submit-button:hover:not(:disabled) {
+  background-color: var(--color-secondary-dark);
 }
 
 .modal__submit-button:disabled {
-  color: #ffffff;
-  background-color: #c7bbb5;
+  background-color: var(--color-disabled);
+  color: var(--white);
+  cursor: not-allowed;
 }
 
+/* 반응형 */
 @media (min-width: 375px) and (max-width: 560px) {
   .modal {
     padding: 25px;

@@ -4,13 +4,28 @@ import CloseIcon from '@/assets/icons/icon-close.svg';
 import MessagesIcon from '@/assets/icons/icon-messages.svg';
 import DefaultImg from '@/assets/images/img-profile-default.svg';
 import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
+import { useFileUpload } from '@/hooks/useFileUpload';
 
 export function Modal() {
-  const [isModalInputEmpty, setIsModalInputEmpty] = useState(true);
+  const [message, setMessage] = useState('');
+  const {
+    selectedFile,
+    previewUrl,
+    fileInputRef,
+    handleFileButtonClick,
+    handleFileChange,
+    handleRemoveFile,
+  } = useFileUpload();
+
+  const isSubmitDisabled = message.trim().length === 0 && selectedFile === null;
 
   const handleModalInput = (e) => {
-    const value = e.target.value;
-    setIsModalInputEmpty(value.trim().length === 0);
+    setMessage(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    setMessage('');
+    handleRemoveFile();
   };
 
   return (
@@ -32,10 +47,51 @@ export function Modal() {
       <div className="modal__body">
         <InputTextArea
           className="modal__input"
+          value={message}
           onChange={handleModalInput}
           placeholder="질문을 입력해주세요"
         />
-        <button className="modal__submit-button" disabled={isModalInputEmpty}>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="modal__file-input-hidden"
+          onChange={handleFileChange}
+        />
+
+        {!selectedFile ? (
+          <button
+            type="button"
+            className="modal__file-button"
+            onClick={handleFileButtonClick}
+          >
+            파일 첨부
+          </button>
+        ) : (
+          <div className="modal__file-preview">
+            <div className="modal__file-thumbnail">
+              {previewUrl && (
+                <img src={previewUrl} alt="첨부 이미지 미리보기" />
+              )}
+            </div>
+
+            <span className="modal__file-name">{selectedFile.name}</span>
+
+            <button
+              type="button"
+              className="modal__file-remove-button"
+              onClick={handleRemoveFile}
+            >
+              <img src={CloseIcon} alt="첨부 파일 삭제" />
+            </button>
+          </div>
+        )}
+
+        <button
+          className="modal__submit-button"
+          disabled={isSubmitDisabled}
+          onClick={handleSubmit}
+        >
           질문 보내기
         </button>
       </div>
