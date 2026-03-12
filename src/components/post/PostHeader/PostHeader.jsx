@@ -51,7 +51,7 @@ function PostHeader({
         />
         <img
           className="post-profile"
-          src={profile}
+          src={profile || Defaultprofile}
           alt="프로필"
           onClick={(e) => e.stopPropagation()}
         />

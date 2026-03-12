@@ -3,10 +3,9 @@ export function useShare(setShowToast) {
     const currentUrl = window.location.href;
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        // 최신 Clipboard API
         await navigator.clipboard.writeText(currentUrl);
       } else {
-        // 폴백: 옛날 방식 (일부 모바일/브라우저용)
+        // 폴백 방식 (일부 모바일/브라우저용)
         const textarea = document.createElement('textarea');
         textarea.value = currentUrl;
         textarea.style.position = 'fixed';
@@ -18,7 +17,7 @@ export function useShare(setShowToast) {
         document.body.removeChild(textarea);
       }
     } catch (e) {
-      console.error('클립보드 복사 실패:', e);
+      console.error('클립보드 복사 실패', e);
     }
     setShowToast(true);
     setTimeout(() => setShowToast(false), 5000);

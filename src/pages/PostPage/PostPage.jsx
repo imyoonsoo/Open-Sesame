@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useShare } from '@/hooks/useShare';
-import { getSubjects } from '@/api/openmindApi';
+import { getSubject, getSubjects } from '@/api/openmindApi';
 import PostHeader from '@/components/post/PostHeader/PostHeader';
 import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
 import QuestionButton from '@/components/post/QuestionButton/QuestionButton';
@@ -9,36 +9,44 @@ import './PostPage.css';
 
 function PostPage() {
   const { id } = useParams();
-  const [data, setData] = useState({
-    name: undefined,
-    profile: undefined,
-  });
+  const [data, setData] = useState({ name: undefined, profile: undefined });
 
   const [showToast, setShowToast] = useState(false);
   const [renderToast, setRenderToast] = useState(false);
   const { copyLink, shareKakao, shareFacebook } = useShare(setShowToast);
 
+  // 질문대상 조회 API
   useEffect(() => {
-    const fetchSubjectData = async () => {
+    if (!id) return;
+    const fetchSubject = async () => {
       try {
-        const result = await getSubjects({ limit: 5 });
-        console.log('리스폰스', result);
-        console.log('target', target);
-        console.log('id', target);
-        if (target) {
-          setData({
-            name: target.name,
-            profile: target.imageSource,
-          });
-          console.log('API 연동 성공!', result);
-        }
+        const subject = await getSubject(id);
+        setData({
+          id: subject.id,
+          name: subject.name,
+          profile: subject.imageSource,
+          questionCount: subject.questionCount,
+          createdAt: subject.createdAt,
+        });
       } catch (error) {
-        console.error('API 연동 실패...', error);
+        console.error('질문대상 조회 실패..', error);
       }
     };
-
-    if (id) fetchSubjectData();
+    fetchSubject();
   }, [id]);
+
+  // 질문대상 목록 조회 API
+  useEffect(() => {
+    const fetchSubjects = async () => {
+      try {
+        const subjectList = await getSubjects({});
+        console.log('질문대상 목록 조회 성공! ', subjectList.results);
+      } catch (error) {
+        console.error('목록 데이터 조회 실패..', error);
+      }
+    };
+    fetchSubjects();
+  }, []);
 
   useEffect(() => {
     if (showToast) {

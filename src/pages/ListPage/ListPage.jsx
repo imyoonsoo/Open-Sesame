@@ -47,7 +47,7 @@ function ListPage() {
     // 정렬이 바뀌면 1페이지부터 다시
     setSearchParams({ page: '1', sort: nextSort });
   };
-  
+
   const handleChangePage = (nextPage) => {
     setSearchParams({ page: String(nextPage), sort });
   };
