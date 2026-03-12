@@ -1,5 +1,10 @@
 import axios from '@/utils/axios'
 
+export const createSubject = async(name) => {
+  const res = await axios.post('/subjects/', {name});
+  return res.data;
+}
+
 // 질문 대상(Subject) 목록 조회 API
 // limit : 한 번에 가져올 데이터 개수
 // offset : 몇 개의 데이터를 건너뛸지 (페이지 계산에 사용)
