@@ -5,7 +5,7 @@ import MessagesIcon from '@/assets/icons/icon-messages.svg';
 import DefaultImg from '@/assets/images/img-profile-default.svg';
 import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
 import { useFileUpload } from '@/hooks/useFileUpload';
-import { postQuestion } from '../../../api/openmindApi';
+import { postQuestion } from '@/api/openmindApi';
 
 export function Modal({ subjectId = 13467 }) {
   const [message, setMessage] = useState('');
