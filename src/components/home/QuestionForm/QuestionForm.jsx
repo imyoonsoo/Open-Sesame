@@ -21,7 +21,7 @@ function QuestionForm() {
     if (isDisabled) return;
     try {
       const subject = await createSubject(value);
-
+      localStorage.setItem('userId', subject.id);
       // localStorage에 저장, name은 InputField onChange에서 저장됨
       setUserId(subject.id);
       setUserImage(subject.imageSource);
