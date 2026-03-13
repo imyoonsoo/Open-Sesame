@@ -6,7 +6,10 @@ export function useFileUpload() {
   const fileInputRef = useRef(null);
 
   const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; //input의 value 초기화
+    }
+    fileInputRef.current?.click(); //숨겨둔 input 클릭
   };
 
   const handleFileChange = (e) => {
@@ -23,7 +26,7 @@ export function useFileUpload() {
 
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    setFilePreview(null);
+    setPreviewUrl(null);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';

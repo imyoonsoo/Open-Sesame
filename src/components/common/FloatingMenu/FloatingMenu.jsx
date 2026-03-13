@@ -10,7 +10,7 @@ const FloatingMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const userId = localStorage.getItem('id');
+  const userId = localStorage.getItem('userId');
 
   return (
     <div className="floating-menu">

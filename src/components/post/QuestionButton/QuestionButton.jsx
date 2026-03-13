@@ -1,15 +1,10 @@
 import './QuestionButton.css';
 
-function QuestionButton() {
+function QuestionButton({ onClick }) {
   return (
     <>
       <div id="questionBtn-box">
-        <button
-          className="questionBtn"
-          onClick={() => {
-            /* 질문 작성하기 연결 */
-          }}
-        >
+        <button className="questionBtn" onClick={onClick}>
           <p className="text-not-mobile">질문 작성하기</p>
           <p className="text-mobile">질문 작성</p>
         </button>
