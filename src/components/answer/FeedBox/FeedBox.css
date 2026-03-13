@@ -79,6 +79,12 @@
   .answer-section {
     display: flex;
     gap: 12px;
+    align-items: flex-start; /* profile-img와 content-container가 상단 기준 정렬을 기본으로 하되, 내용이 없을땐 아래에서 조절 */
+  }
+
+  /* 답변 내용이 없을 때(즉, 이름과 날짜만 있을 때) 중앙 정렬을 위한 스타일 추가 */
+  .answer-section.unanswered {
+    align-items: center; 
   }
 
   .profile-img {
@@ -90,13 +96,17 @@
 
   .content-container {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* 텍스트 내용들을 세로 중앙에 배치 */
+    min-height: 48px; /* 이미지 최소 높이와 동일하게 맞춤 */
   }
 
   .user-info {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 6px;
+    /* margin-bottom은 .answer-content가 있을 때만 여백을 주기 위해 margin 제거 */
   }
 
   .nickname {
@@ -110,6 +120,33 @@
     color: #9e9e9e;
   }
 
+  .btn-reply-toggle {
+    margin-left: auto; /* flex 컨테이너 내에서 오른쪽 끝으로 밀어냅니다. */
+    background: #f5f1ee;
+    border: 1px solid #542f1a;
+    border-radius: 60px;
+    padding: 8px 16px;
+    font-size: 13px;
+    color: #542f1a;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-reply-toggle:hover {
+    background-color: #e5dcdc;
+  }
+
+  .reply-toggle-icon {
+    width: 14px;
+    height: 14px;
+    /* icon-arrow-down.svg 색상을 #542f1a 와 비슷하게 만드는 필터 (검정색 기준) */
+    filter: invert(19%) sepia(30%) saturate(2250%) hue-rotate(345deg) brightness(96%) contrast(98%);
+  }
+  
   .answer-content {
     font-size: 16px;
     line-height: 1.6;
@@ -139,47 +176,60 @@
     padding: 0;
   }
 
-  .btn-like {
-    color: #2196f3; /* 파란색 좋아요 */
-  }
-
-  .btn-dislike {
-    color: #bdbdbd; /* 회색 싫어요 */
+  .btn-sesame {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #e38500;
   }
 
   .footer-section button:hover {
     opacity: 0.7;
   }
 
-  .btn-icon {
-    width: 16px;
-    height: 16px;
-    /* 아이콘이 원래 검정색인데 #818181 회색으로 변환하는 filter. 이렇게도 씀 */
-    filter: invert(53%) sepia(0%) saturate(0%) hue-rotate(180deg)
-      brightness(97%) contrast(87%);
+  .icon-sesame {
+    width: 20px;
+    height: 20px;
+    /* #e38500 을 나타내기 위한 filter 값 (검정색 원본 기준) */
+    filter: invert(53%) sepia(87%) saturate(1633%) hue-rotate(8deg) brightness(97%) contrast(101%);
+    display: block;
+    margin-top: -2px; /* 텍스트 베이스라인과 시각적 중심을 맞추기 위한 미세 조정 */
   }
 
-.answer-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  margin-top: 10px;
-}
+  /* 답변 텍스트 입력창 펼침/접힘 애니메이션 (CSS Grid 활용) */
+  .answer-input-container {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    margin-top: 0;
+  }
 
-.answer-textarea {
-  width: 100%;
-  height: 120px;
-  padding: 16px;
-  border: none;
-  border-radius: 12px;
-  background-color: #f9f9f9;
-  font-size: 15px;
-  resize: none;
-  outline: none;
-  box-sizing: border-box;
-  color: #333;
-}
+  .answer-input-container.open {
+    grid-template-rows: 1fr;
+    margin-top: 10px; /* 열릴 때만 간격 추가 */
+  }
+
+  .answer-input-wrapper {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .answer-textarea {
+    width: 100%;
+    height: 120px;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    font-size: 15px;
+    resize: none;
+    outline: none;
+    box-sizing: border-box;
+    color: #333;
+  }
 
 .answer-textarea::placeholder {
   color: #818181;
