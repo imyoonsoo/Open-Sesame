@@ -15,16 +15,6 @@ function PostPage() {
   const { id } = useParams();
   const [data, setData] = useState({ name: undefined, profile: undefined });
 
-  const [isToast, setIsToast] = useState(false);
-
-  // 아래 상태/함수들은 실제 사용 중이면 선언되어 있어야 함
-  const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState('');
-  const fileInputRef = useRef(null);
-
-  const { copyLink, shareKakao, shareFacebook } = useShare(setIsToast);
   const [showToast, setShowToast] = useState(false);
   const [renderToast, setRenderToast] = useState(false);
   const { copyLink, shareKakao, shareFacebook } = useShare(setShowToast);
@@ -101,32 +91,6 @@ function PostPage() {
     const t = setTimeout(() => setRenderToast(false), EXIT_MS);
     return () => clearTimeout(t);
   }, [showToast]);
-
-  const handleCloseModal = () => {
-    setIsQuestionModalOpen(false);
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    setSelectedFile(file);
-    setPreviewUrl(URL.createObjectURL(file));
-  };
-
-  const handleFileButtonClick = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-    setPreviewUrl('');
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  };
-
-  const handleSubmit = () => {
-    // 제출 로직
-  };
 
   return (
     <div className="postpage-wrapper">
