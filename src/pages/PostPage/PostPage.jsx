@@ -9,6 +9,7 @@ import './PostPage.css';
 import { Modal } from '@/components/common/Modal';
 import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
 import { useFileUpload } from '@/hooks/useFileUpload';
+import { useModalScrollLock } from '@/hooks/useModalScrollLock';
 
 function PostPage() {
   const { id } = useParams();
@@ -52,6 +53,7 @@ function PostPage() {
   }, []);
   // 모달
   const [isQuestionModalOpen, setIsQuestionModalOpen] = useState(false);
+  useModalScrollLock(isQuestionModalOpen);
   const [message, setMessage] = useState('');
   const {
     selectedFile,
