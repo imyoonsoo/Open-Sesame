@@ -5,6 +5,7 @@ import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi } from '@/api';
+import EditDropdown from '@/components/answer/EditDropdown/EditDropdown';
 
 const FeedBox = ({ questionData, user }) => {
   const {
@@ -74,12 +75,23 @@ const FeedBox = ({ questionData, user }) => {
     <div className="feed-box">
       {/* 최상단: 상태 배지 */}
       <div className="badge-container">
-        {isAnswered ? (
-          <span className="status-badge">답변 완료</span>
-        ) : (
-          <span className="status0-badge">미답변</span>
-        )}
-      </div>
+  {isAnswered ? (
+    <span className="status-badge">답변 완료</span>
+  ) : (
+    <span className="status0-badge">미답변</span>
+  )}
+
+  {isAnswered && (
+    <EditDropdown
+      onEdit={() => {
+        setIsReplying(true);
+      }}
+      onDelete={() => {
+        alert('삭제 기능 연결 예정');
+      }}
+    />
+  )}
+</div>
 
       {/* 질문 영역 */}
       <div className="question-section">
