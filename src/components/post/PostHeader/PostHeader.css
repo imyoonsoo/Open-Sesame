@@ -10,9 +10,11 @@
   display: block;
   max-height: 25vh;
   object-fit: cover;
+  cursor: pointer;
 }
 
 .post-logo {
+  cursor: pointer;
   width: clamp(124px, 14.1vw, 170px);
   height: clamp(49px, 5.6vw, 67px);
 }
@@ -25,6 +27,12 @@
   align-items: center;
   width: 100%;
   gap: 8px;
+  pointer-events: none;
+}
+
+.post-logo,
+.post-share button {
+  pointer-events: auto;
 }
 
 .post-name {
@@ -42,6 +50,7 @@
 .post-profile {
   width: clamp(94px, 8vw, 140px);
   height: clamp(94px, 8vw, 140px);
+  cursor: pointer;
 }
 
 .post-share {

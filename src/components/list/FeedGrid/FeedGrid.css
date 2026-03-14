@@ -1,14 +1,17 @@
 .feed-grid {
   display: grid;
   gap: 24px;
-
   grid-template-columns: repeat(4, 1fr);
+
+  max-width: 1020px;   
+  margin: 0 auto;      
 }
 
 /* Tablet */
 @media (max-width: 1024px) {
   .feed-grid {
     grid-template-columns: repeat(3, 1fr);
+    max-width: 100%;
   }
 }
 
@@ -16,5 +19,6 @@
 @media (max-width: 640px) {
   .feed-grid {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
   }
 }

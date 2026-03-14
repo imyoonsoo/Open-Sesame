@@ -35,34 +35,15 @@
   color: #000000;
 }
 
-/* 헤더 */
-.list-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 24px 0;
-}
-
-.list-title {
-  margin: 0;
-  font-size: 32px;
-}
-
-.sort-dropdown {
-  position: static;
-  right: 0;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
 
 /* ✅ PC: 카드 220px, 4개 */
 .feed-grid {
   display: grid;
-  justify-content: center;
   gap: 24px;
-  padding: 24px 0;
   grid-template-columns: repeat(4, 220px);
+  width: 952px;          
+  margin: 0 auto;
+  padding: 24px 0;
 }
 
 /* 카드 */
@@ -143,6 +124,7 @@
 
   .feed-grid {
     /* 최소 186px 유지, 화면이 줄면 자동으로 열 수가 줄어듦(4->3...) */
+    width: 100%;
     grid-template-columns: repeat(auto-fit, minmax(186px, 1fr));
     justify-content: stretch;
   }
