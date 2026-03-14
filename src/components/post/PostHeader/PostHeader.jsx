@@ -6,6 +6,7 @@ import FacebackVector from '@/assets/icons/icon-share-facebook.svg';
 import OpenSesameBackground from '@/assets/images/img-header-openmind.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
+import { useState, useEffect } from 'react';
 
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
@@ -30,6 +31,24 @@ function PostHeader({
   kakaoIcon,
   facebookIcon,
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState(name);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('username');
+    if (saved) {
+      setUsername(saved);
+    }
+  }, []);
+  const handleSave = () => {
+    localStorage.setItem('username', username);
+    setIsOpen(false);
+  };
+
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+  };
+
   const navigate = useNavigate();
   return (
     <div id="postpage-header">
@@ -55,7 +74,26 @@ function PostHeader({
           alt="프로필"
           onClick={(e) => e.stopPropagation()}
         />
-        <p className="post-name">{name}</p>
+        <p className="post-name">{username}</p>
+        {isOpen && (
+          <div className="edit-name">
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              id="my-name"
+            />
+            <button onClick={handleSave}>저장</button>
+          </div>
+        )}
+        <button
+          onClick={() => {
+            console.log('클릭됨');
+            handleToggle();
+          }}
+        >
+          설정
+        </button>
         <div className="post-share">
           <ShareButton
             className="post-linkBtn"
