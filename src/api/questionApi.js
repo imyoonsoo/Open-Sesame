@@ -9,6 +9,12 @@ export const questionApi = {
     return res.data;
   },
 
+  // 질문 삭제
+  delete: async (subjectId) => {
+    const res = await axios.delete(`/subjects/${subjectId}/`);
+    return res.data;
+  },
+
   // 특정 대상의 질문 목록 조회
   getBySubject: async (subjectId, { limit = 8, offset = 0 } = {}) => {
     const res = await axios.get(`/subjects/${subjectId}/questions/`, {
