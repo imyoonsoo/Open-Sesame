@@ -19,8 +19,14 @@ const FeedContainer = () => {
         const subjectData = await getSubject(id);
         setSubject(subjectData);
 
-        const questionsData = await getQuestions(id);
-        setQuestions(questionsData?.results || []);
+        const questionsData = await getQuestions(id, { limit: 100 });
+        
+        // 작성 시간 기준 오름차순 (오래된 글이 위로, 최신 글이 아래로) 정렬
+        const sortedQuestions = (questionsData?.results || []).sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+        
+        setQuestions(sortedQuestions);
         setQuestionCount(questionsData?.count || 0);
       } catch (error) {
         console.error('Failed to fetch data:', error);
