@@ -5,7 +5,7 @@ import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi } from '@/api';
-import EditDropdown from '@/components/answer/EditDropdown/EditDropdown';
+import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
 const FeedBox = ({ questionData, user }) => {
   const {
@@ -72,26 +72,37 @@ const FeedBox = ({ questionData, user }) => {
   const isMySubject = localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
-    <div className="feed-box">
-      {/* 최상단: 상태 배지 */}
-      <div className="badge-container">
-  {isAnswered ? (
-    <span className="status-badge">답변 완료</span>
-  ) : (
-    <span className="status0-badge">미답변</span>
-  )}
+  <div className="feed-box">
+    {/* 최상단: 상태 배지 */}
+    <div className="badge-container">
+      {isAnswered ? (
+        <span className="status-badge">답변 완료</span>
+      ) : (
+        <span className="status0-badge">미답변</span>
+      )}
 
-  {isAnswered && (
-    <EditDropdown
+      <EditDropdown
+      prefixLabel={isAnswered ? '답변' : '질문'}
       onEdit={() => {
-        setIsReplying(true);
+        if (isAnswered) {
+          console.log('답변 수정하기:', questionId);
+          setIsReplying(true);
+        } else {
+          console.log('질문 수정하기:', questionId);
+          alert('질문 수정 기능 연결 예정');
+        }
       }}
       onDelete={() => {
-        alert('삭제 기능 연결 예정');
+        if (isAnswered) {
+          console.log('답변 삭제하기:', questionId);
+          alert('답변 삭제 기능 연결 예정');
+        } else {
+          console.log('질문 삭제하기:', questionId);
+          alert('질문 삭제 기능 연결 예정');
+        }
       }}
     />
-  )}
-</div>
+    </div>
 
       {/* 질문 영역 */}
       <div className="question-section">
