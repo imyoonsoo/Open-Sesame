@@ -7,6 +7,8 @@ import OpenSesameBackground from '@/assets/images/img-header-openmind.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
 
+import OptionDropdown from '@/components/post/OptionDropdown/OptionDropdown';
+
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
   return (
@@ -29,6 +31,8 @@ function PostHeader({
   linkIcon,
   kakaoIcon,
   facebookIcon,
+  onClickEditName,
+  onClickDelete,
 }) {
   const navigate = useNavigate();
   return (
@@ -55,7 +59,13 @@ function PostHeader({
           alt="프로필"
           onClick={(e) => e.stopPropagation()}
         />
-        <p className="post-name">{name}</p>
+        <div className="post-name-row">
+          <p className="post-name">{name}</p>
+          <OptionDropdown
+            onClickEdit={onClickEditName}
+            onClickDelete={onClickDelete}
+          />
+        </div>
         <div className="post-share">
           <ShareButton
             className="post-linkBtn"
