@@ -7,6 +7,8 @@ import OpenSesameBackground from '@/assets/images/img-header-openmind.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
 import { useState, useEffect } from 'react';
+import SubmitButton from '@/components/home/SubmitButton/SubmitButton';
+import InputField from '@/components/common/InputField/InputField';
 
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
 function ShareButton({ className, icon, alt, onClick }) {
@@ -74,26 +76,20 @@ function PostHeader({
           alt="프로필"
           onClick={(e) => e.stopPropagation()}
         />
-        <p className="post-name">{username}</p>
-        {isOpen && (
-          <div className="edit-name">
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              id="my-name"
-            />
-            <button onClick={handleSave}>저장</button>
-          </div>
+        {isOpen ? (
+          <InputField
+            className="post-name post-name-editing"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            onBlur={handleSave}
+            onKeyDown={(e) => e.key === 'Enter' && handleSave()}
+            autoFocus
+          />
+        ) : (
+          <p className="post-name">{username}</p>
         )}
-        <button
-          onClick={() => {
-            console.log('클릭됨');
-            handleToggle();
-          }}
-        >
-          설정
-        </button>
+
+        <button onClick={handleToggle}>설정</button>
         <div className="post-share">
           <ShareButton
             className="post-linkBtn"

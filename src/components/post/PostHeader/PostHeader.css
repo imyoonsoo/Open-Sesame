@@ -46,6 +46,9 @@
   font-size: clamp(24px, 3vw, 32px);
   line-height: clamp(30px, 3vw, 40px);
 }
+.post-name-editing {
+  width: 200px;
+}
 
 .post-profile {
   width: clamp(94px, 8vw, 140px);
