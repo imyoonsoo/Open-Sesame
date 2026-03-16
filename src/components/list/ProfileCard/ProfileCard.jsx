@@ -1,12 +1,11 @@
 import { Link } from 'react-router-dom';
-import Messages from "@/assets/icons/icon-messages-alt.svg";
+import Messages from '@/assets/icons/icon-messages-alt.svg';
 import './ProfileCard.css';
 
 function ProfileCard({ item }) {
   return (
     // 카드 전체를 클릭하면 해당 subject의 페이지로 이동
     <Link to={`/post/${item.id}`} className="feed-card">
-
       {/* 질문 대상 프로필 이미지 */}
       <div className="feed-avatar">
         <img src={item.imageSource} alt={item.name} />
@@ -17,10 +16,12 @@ function ProfileCard({ item }) {
 
       {/* 받은 질문 개수 표시 */}
       <div className="feed-meta">
-        <img src={Messages} alt="다음 페이지" />
-        받은 질문 {item.questionCount}개
+        <div className="feed-meta-question">
+          <img src={Messages} alt="다음 페이지" />
+          받은 질문{' '}
+        </div>
+        {item.questionCount}개
       </div>
-
     </Link>
   );
 }

@@ -29,7 +29,15 @@
 }
 
 .feed-meta {
+  width: 100%;
   margin-top: 6px;
   color: var(--Grayscale-40);
   font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.feed-meta-question {
+  display: flex;
+  gap: 4px;
+  align-items: center;
 }
