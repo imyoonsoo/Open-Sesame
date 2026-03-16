@@ -7,7 +7,7 @@ import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi } from '@/api';
 import EditDropdown from '@/components/answer/EditDropdown/EditDropdown';
 
-const FeedBox = ({ questionData, user }) => {
+const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
@@ -69,29 +69,29 @@ const FeedBox = ({ questionData, user }) => {
   const answerFormattedDate = formatDate(answer?.createdAt);
 
   const subjectName = user?.name || user?.nickname || '익명';
-  const isMySubject = localName === subjectName; // 내 대상(Subject) 판단 조건
+  const isMySubject = mode === 'edit' && localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
     <div className="feed-box">
       {/* 최상단: 상태 배지 */}
       <div className="badge-container">
-  {isAnswered ? (
-    <span className="status-badge">답변 완료</span>
-  ) : (
-    <span className="status0-badge">미답변</span>
-  )}
+        {isAnswered ? (
+          <span className="status-badge">답변 완료</span>
+        ) : (
+          <span className="status0-badge">미답변</span>
+        )}
 
-  {isAnswered && (
-    <EditDropdown
-      onEdit={() => {
-        setIsReplying(true);
-      }}
-      onDelete={() => {
-        alert('삭제 기능 연결 예정');
-      }}
-    />
-  )}
-</div>
+        {mode === 'edit' && isAnswered && (
+          <EditDropdown
+            onEdit={() => {
+              setIsReplying(true);
+            }}
+            onDelete={() => {
+              alert('삭제 기능 연결 예정');
+            }}
+          />
+        )}
+      </div>
 
       {/* 질문 영역 */}
       <div className="question-section">
@@ -100,7 +100,7 @@ const FeedBox = ({ questionData, user }) => {
       </div>
 
       {/* 답변 영역: 이미 답변이 있거나, 내 질문 대상일 때만 렌더링 */}
-      {(isAnswered || isMySubject) && (
+      {(mode === 'view' ? isAnswered : isAnswered || isMySubject) && (
         <div className="answer-section">
           <div className="profile-container">
             <img
@@ -118,7 +118,7 @@ const FeedBox = ({ questionData, user }) => {
               </span>
 
               {/* [답변하기] 토글: 아직 답변이 안달렸고 현재 사용자의 Subject일 때만 표시 */}
-              {!isAnswered && isMySubject && (
+              {mode === 'edit' && !isAnswered && isMySubject && (
                 <button
                   className="btn-reply-toggle"
                   onClick={handleToggleReply}
@@ -141,7 +141,7 @@ const FeedBox = ({ questionData, user }) => {
                   answerText
                 )}
               </p>
-            ) : isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
+            ) : mode === 'edit' && isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
               <div
                 className={`answer-input-container ${isReplying ? 'open' : ''}`}
               >

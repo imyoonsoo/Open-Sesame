@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useShare } from '@/hooks/useShare';
 import { subjectApi, questionApi } from '@/api';
 import PostHeader from '@/components/post/PostHeader/PostHeader';
-import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
 import QuestionButton from '@/components/post/QuestionButton/QuestionButton';
 import './PostPage.css';
 import { Modal } from '@/components/common/Modal';
@@ -11,6 +10,7 @@ import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
 import { useFileUpload } from '@/hooks/useFileUpload';
 import AlertModal from '@/components/common/AlertModal/AlertModal';
 import { useModalScrollLock } from '@/hooks/useModalScrollLock';
+import FeedContainer from '@/components/answer/FeedContainer/FeedContainer';
 
 function PostPage() {
   const { id } = useParams();
@@ -155,7 +155,7 @@ function PostPage() {
           </div>
         )}
         <div className="content-area">
-          <NoQuestion />
+          <FeedContainer mode="view" />
           <QuestionButton onClick={handleOpenModal} />
         </div>
       </div>

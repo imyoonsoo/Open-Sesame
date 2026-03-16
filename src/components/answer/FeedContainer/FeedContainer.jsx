@@ -5,8 +5,9 @@ import FeedBox from '../FeedBox/FeedBox';
 import iconMessages from '@/assets/icons/icon-messages.svg';
 import iconArrowLeft from '@/assets/icons/icon-arrow-left.svg';
 import { subjectApi, questionApi } from '@/api';
+import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
 
-const FeedContainer = () => {
+const FeedContainer = ({ mode = 'edit' }) => {
   const { id } = useParams();
   const [subject, setSubject] = useState(null);
   const [questions, setQuestions] = useState([]);
@@ -29,6 +30,10 @@ const FeedContainer = () => {
     fetchData();
   }, [id]);
 
+  const questionList = questions.map((q) => (
+    <FeedBox key={q.id} questionData={q} user={subject} mode={mode} />
+  ));
+
   return (
     <>
       <div className="feed-page-wrapper">
@@ -38,22 +43,22 @@ const FeedContainer = () => {
         </div>
         <div id="feed-container">
           <div className="feed-header">
-            <img src={iconMessages} alt="messages" className="message-icon" />
-            <span className="message-text">
-              {questionCount === 0
-                ? '아직 질문이 없습니다'
-                : `${questionCount}개의 질문이 있습니다`}
-            </span>
+            {questions.length === 0 ? (
+              <NoQuestion />
+            ) : (
+              <>
+                <img
+                  src={iconMessages}
+                  alt="messages"
+                  className="message-icon"
+                />
+                <span className="message-text">
+                  {`${questionCount}개의 질문이 있습니다`}
+                </span>
+              </>
+            )}
           </div>
-          {questions.length > 0 ? (
-            questions.map((q) => (
-              <FeedBox key={q.id} questionData={q} user={subject} />
-            ))
-          ) : (
-            <div className="empty-message-container">
-              {/* Optional empty state UI */}
-            </div>
-          )}
+          {questionList}
         </div>
       </div>
     </>
