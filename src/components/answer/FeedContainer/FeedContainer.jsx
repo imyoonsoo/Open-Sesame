@@ -19,7 +19,7 @@ const FeedContainer = () => {
         const subjectData = await subjectApi.getById(id);
         setSubject(subjectData);
 
-        const questionsData = await getQuestions(id, { limit: 100 });
+        const questionsData = await questionApi.getBySubject(id, { limit: 100 });
         
         // 작성 시간 기준 오름차순 (오래된 글이 위로, 최신 글이 아래로) 정렬
         const sortedQuestions = (questionsData?.results || []).sort((a, b) => {
