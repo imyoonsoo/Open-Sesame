@@ -22,4 +22,12 @@ export const questionApi = {
     });
     return res.data;
   },
+
+  // 리액션 생성 (참깨 n방울)
+  reaction: async (questionId, type) => {
+    const res = await axios.post(`/questions/${questionId}/reaction/`, {
+      type,
+    });
+    return res.data;
+  },
 };

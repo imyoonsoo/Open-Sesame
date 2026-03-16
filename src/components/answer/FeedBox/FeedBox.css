@@ -105,6 +105,7 @@
   .user-info {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     /* margin-bottom은 .answer-content가 있을 때만 여백을 주기 위해 margin 제거 */
   }
@@ -183,8 +184,13 @@
     color: #e38500;
   }
 
-  .footer-section button:hover {
+  .footer-section button:hover:not(:disabled) {
     opacity: 0.7;
+  }
+
+  .footer-section button:disabled {
+    cursor: default;
+    opacity: 0.6;
   }
 
   .icon-sesame {

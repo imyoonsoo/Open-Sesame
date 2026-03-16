@@ -19,8 +19,14 @@ const FeedContainer = () => {
         const subjectData = await subjectApi.getById(id);
         setSubject(subjectData);
 
-        const questionsData = await questionApi.getBySubject(id);
-        setQuestions(questionsData?.results || []);
+        const questionsData = await questionApi.getBySubject(id, { limit: 100 });
+        
+        // 작성 시간 기준 오름차순 (오래된 글이 위로, 최신 글이 아래로) 정렬
+        const sortedQuestions = (questionsData?.results || []).sort((a, b) => {
+          return new Date(a.createdAt) - new Date(b.createdAt);
+        });
+        
+        setQuestions(sortedQuestions);
         setQuestionCount(questionsData?.count || 0);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -44,16 +50,16 @@ const FeedContainer = () => {
                 ? '아직 질문이 없습니다'
                 : `${questionCount}개의 질문이 있습니다`}
             </span>
+        </div>
+        {questions.length > 0 ? (
+          questions.map((q) => (
+            <FeedBox key={q.id} questionData={q} user={subject} />
+          ))
+        ) : (
+          <div className="empty-message-container">
+            {/* Optional empty state UI */}
           </div>
-          {questions.length > 0 ? (
-            questions.map((q) => (
-              <FeedBox key={q.id} questionData={q} user={subject} />
-            ))
-          ) : (
-            <div className="empty-message-container">
-              {/* Optional empty state UI */}
-            </div>
-          )}
+        )}
         </div>
       </div>
     </>
