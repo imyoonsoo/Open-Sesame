@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useShare } from '@/hooks/useShare';
-import { subjectApi, questionApi } from '@/api';
+import { subjectApi } from '@/api';
 import PostHeader from '@/components/post/PostHeader/PostHeader';
 import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
 import QuestionButton from '@/components/post/QuestionButton/QuestionButton';
-import './PostPage.css';
 import { Modal } from '@/components/common/Modal';
 import InputTextArea from '@/components/common/InputTextArea/InputTextArea';
 import { useFileUpload } from '@/hooks/useFileUpload';
 import AlertModal from '@/components/common/AlertModal/AlertModal';
 import { useModalScrollLock } from '@/hooks/useModalScrollLock';
+import './PostPage.css';
 
 function PostPage() {
   const { id } = useParams();
@@ -82,7 +82,7 @@ function PostPage() {
 
   const handleSubmit = async () => {
     try {
-      await questionApi.create(13467, message);
+      await subjectApi.create(13467, message);
       handleCloseModal();
     } catch (error) {
       console.error('질문 등록 실패:', error);
@@ -108,7 +108,7 @@ function PostPage() {
   // 질문대상 삭제 함수
   const handleDeleteSubject = async () => {
     try {
-      await questionApi.delete(Number(id)); // data.id 대신 params id 사용
+      await subjectApi.delete(Number(id)); // data.id 대신 params id 사용
 
       console.log('삭제 완료');
 
@@ -133,7 +133,10 @@ function PostPage() {
           linkIcon={handleCopyLink} // 기존 copyLink 대신 토스트 문구까지 처리하는 함수 연결
           kakaoIcon={shareKakao}
           facebookIcon={shareFacebook}
-          onClickDelete={() => setIsDeleteModalOpen(true)}
+          onClickDelete={() => {
+            console.log('탈퇴하기 클릭됨');
+            setIsDeleteModalOpen(true);
+          }}
         />
         {isDeleteModalOpen && (
           <div

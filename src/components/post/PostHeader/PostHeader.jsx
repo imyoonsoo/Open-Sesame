@@ -63,7 +63,10 @@ function PostHeader({
           <p className="post-name">{name}</p>
           <OptionDropdown
             onClickEdit={onClickEditName}
-            onClickDelete={onClickDelete}
+            onClickDelete={() => {
+              console.log('PostHeader 탈퇴 클릭');
+              onClickDelete?.();
+            }}
           />
         </div>
         <div className="post-share">
