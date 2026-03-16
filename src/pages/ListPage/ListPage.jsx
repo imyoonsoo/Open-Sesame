@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { getSubjects } from '@/api/openmindApi';
+import { subjectApi } from '@/api';
 
 import ListTopBar from '@/components/list/ListTopBar/ListTopBar';
 import ListHeader from '@/components/list/ListHeader/ListHeader';
@@ -81,7 +81,7 @@ function ListPage() {
 
         // API 호출 (openmindApi.js의 getSubjects 사용)
         // 실제 요청 URL 예: /subjects/?limit=8&offset=0&sort=time
-        const data = await getSubjects({ limit, offset, sort });
+        const data = await subjectApi.getAll({ limit, offset, sort });
 
         // API 응답 구조: { count: 전체 개수, results: 현재 페이지 데이터, next, previous }
         const list = data.results ?? []; // results가 없을 때를 대비해 빈 배열
@@ -91,6 +91,7 @@ function ListPage() {
         if (!alive) return;
 
         // 화면에 뿌릴 목록 세팅
+        // 실제 화면에는 원본 list 대신 testList를 넣음
         setSubjects(list);
 
         // 총 페이지 수 계산
@@ -100,6 +101,7 @@ function ListPage() {
       } catch (e) {
         // 요청 실패 시 사용자에게 보여줄 에러 메시지 세팅
         // (alive 체크는 위와 동일하게 안전장치)
+        console.error('목록 조회 에러:', e);
         if (!alive) return;
         setErrorMsg('목록을 불러오지 못했습니다. 잠시 후 다시 시도해주세요.');
       } finally {

@@ -51,6 +51,10 @@ body {
   font-family: 'Pretendard', sans-serif;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 #copyright {
   order: 3;
   flex-basis: 100%;

@@ -13,6 +13,8 @@
   transition: all 0.2s ease;
   text-decoration: none;
   white-space: nowrap;
+  transition: all 0.15s ease;
+  box-shadow: 0 3px 0 #542f1a;
 }
 
 .go-questionBtn::after {
@@ -23,6 +25,11 @@
 .go-questionBtn:hover {
   background: #542f1a;
   color: white;
+  transform: translateY(2px);
+}
+
+.go-questionBtn:active {
+  transform: translateY(2px);
 }
 
 @media (max-width: 768px) {

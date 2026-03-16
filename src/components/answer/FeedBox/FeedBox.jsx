@@ -4,7 +4,8 @@ import defaultCatImage from '@/assets/images/img-profile-cat.png';
 import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
-import { createAnswer, postReaction } from '@/api/openmindApi';
+import { answerApi, questionApi } from '@/api';
+import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
 const FeedBox = ({ questionData, user }) => {
   const {
@@ -47,12 +48,12 @@ const FeedBox = ({ questionData, user }) => {
 
   const handleAnswerSubmit = async () => {
     if (isButtonActive && !isAnswered) {
-      if (!questionId) return; 
+      if (!questionId) return;
       // 답변등록 관련 오류 처리
       try {
-        const result = await createAnswer(questionId, {
+        const result = await answerApi.create(questionId, {
           content: answerText,
-          isRejected: false
+          isRejected: false,
         });
         setIsAnswered(true);
         setIsReplying(false); // 제출 후 텍스트 영역 닫기
@@ -67,7 +68,7 @@ const FeedBox = ({ questionData, user }) => {
     if (!questionId || isLiked) return;
     try {
       // POST /questions/{questionId}/reaction/ 으로 type: "like" 전달
-      await postReaction(questionId, 'like');
+      await questionApi.reaction(questionId, 'like');
       // 성공하면 클라이언트 UI 상의 좋아요 수도 즉각 +1
       setLikes((prev) => prev + 1);
       setIsLiked(true);
@@ -107,15 +108,37 @@ const FeedBox = ({ questionData, user }) => {
   const isMySubject = localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
-    <div className="feed-box">
-      {/* 최상단: 상태 배지 */}
-      <div className="badge-container">
-        {isAnswered ? (
-          <span className="status-badge">답변 완료</span>
-        ) : (
-          <span className="status0-badge">미답변</span>
-        )}
-      </div>
+  <div className="feed-box">
+    {/* 최상단: 상태 배지 */}
+    <div className="badge-container">
+      {isAnswered ? (
+        <span className="status-badge">답변 완료</span>
+      ) : (
+        <span className="status0-badge">미답변</span>
+      )}
+
+      <EditDropdown
+      prefixLabel={isAnswered ? '답변' : '질문'}
+      onEdit={() => {
+        if (isAnswered) {
+          console.log('답변 수정하기:', questionId);
+          setIsReplying(true);
+        } else {
+          console.log('질문 수정하기:', questionId);
+          alert('질문 수정 기능 연결 예정');
+        }
+      }}
+      onDelete={() => {
+        if (isAnswered) {
+          console.log('답변 삭제하기:', questionId);
+          alert('답변 삭제 기능 연결 예정');
+        } else {
+          console.log('질문 삭제하기:', questionId);
+          alert('질문 삭제 기능 연결 예정');
+        }
+      }}
+    />
+    </div>
 
       {/* 질문 영역 */}
       <div className="question-section">
@@ -137,42 +160,55 @@ const FeedBox = ({ questionData, user }) => {
           <div className="content-container">
             <div className="user-info">
               <span className="nickname">{subjectName}</span>
-              <span className="date">{isAnswered ? answerFormattedDate : formattedDate}</span>
-              
+              <span className="date">
+                {isAnswered ? answerFormattedDate : formattedDate}
+              </span>
+
               {/* [답변하기] 토글: 아직 답변이 안달렸고 현재 사용자의 Subject일 때만 표시 */}
               {!isAnswered && isMySubject && (
-                <button className="btn-reply-toggle" onClick={handleToggleReply}>
+                <button
+                  className="btn-reply-toggle"
+                  onClick={handleToggleReply}
+                >
                   {isReplying ? '닫기' : '답변하기'}
-                  <img src={isReplying ? iconArrowUp : iconArrowDown} alt="토글 아이콘" className="reply-toggle-icon" />
+                  <img
+                    src={isReplying ? iconArrowUp : iconArrowDown}
+                    alt="토글 아이콘"
+                    className="reply-toggle-icon"
+                  />
                 </button>
               )}
             </div>
 
             {isAnswered ? (
               <p className="answer-content">
-                 {isRejected ? <span className="rejected-text">답변 거절</span> : answerText}
+                {isRejected ? (
+                  <span className="rejected-text">답변 거절</span>
+                ) : (
+                  answerText
+                )}
               </p>
-            ) : (
-              isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
-                <div className={`answer-input-container ${isReplying ? 'open' : ''}`}>
-                  <div className="answer-input-wrapper">
-                    <textarea
-                      className="answer-textarea"
-                      placeholder="답변을 입력해주세요"
-                      value={answerText}
-                      onChange={(e) => setAnswerText(e.target.value)}
-                    />
-                    <button
-                      className={`btn-submit ${isButtonActive ? 'active' : 'disabled'}`}
-                      disabled={!isButtonActive}
-                      onClick={handleAnswerSubmit}
-                    >
-                      답변 완료
-                    </button>
-                  </div>
+            ) : isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
+              <div
+                className={`answer-input-container ${isReplying ? 'open' : ''}`}
+              >
+                <div className="answer-input-wrapper">
+                  <textarea
+                    className="answer-textarea"
+                    placeholder="답변을 입력해주세요"
+                    value={answerText}
+                    onChange={(e) => setAnswerText(e.target.value)}
+                  />
+                  <button
+                    className={`btn-submit ${isButtonActive ? 'active' : 'disabled'}`}
+                    disabled={!isButtonActive}
+                    onClick={handleAnswerSubmit}
+                  >
+                    답변 완료
+                  </button>
                 </div>
-              ) : null
-            )}
+              </div>
+            ) : null}
           </div>
         </div>
       )}

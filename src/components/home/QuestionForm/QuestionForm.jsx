@@ -3,7 +3,7 @@ import nameicon from '@/assets/images/img-input-name.png';
 import InputField from '@/components/common/InputField/InputField';
 import useLocalStorage from '@/hooks/useLocalStorage';
 import SubmitButton from '../SubmitButton/SubmitButton';
-import { createSubject } from '@/api/openmindApi';
+import { subjectApi } from '@/api';
 import './QuestionForm.css';
 
 function QuestionForm() {
@@ -20,7 +20,7 @@ function QuestionForm() {
     //내용이 없으면 submit 비활성화
     if (isDisabled) return;
     try {
-      const subject = await createSubject(value);
+      const subject = await subjectApi.create(value);
       localStorage.setItem('userId', subject.id);
       // localStorage에 저장, name은 InputField onChange에서 저장됨
       setUserId(subject.id);
