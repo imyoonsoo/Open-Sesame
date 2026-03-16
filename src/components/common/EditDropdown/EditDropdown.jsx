@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './EditDropdown.css';
 
-function EditDropdown({ onEdit, onDelete }) {
+function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -17,6 +17,7 @@ function EditDropdown({ onEdit, onDelete }) {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -37,7 +38,7 @@ function EditDropdown({ onEdit, onDelete }) {
               onEdit?.();
             }}
           >
-            수정하기
+            {prefixLabel} 수정하기
           </button>
 
           <button
@@ -47,7 +48,7 @@ function EditDropdown({ onEdit, onDelete }) {
               onDelete?.();
             }}
           >
-            삭제하기
+            {prefixLabel} 삭제하기
           </button>
         </div>
       )}

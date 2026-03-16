@@ -72,7 +72,6 @@ function OptionDropdown({ onClickEdit, onClickDelete }) {
               이름변경
             </button>
           </li>
-
           <li>
             <button
               type="button"
