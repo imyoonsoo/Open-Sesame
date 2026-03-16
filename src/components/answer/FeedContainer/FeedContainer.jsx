@@ -20,6 +20,9 @@ const FeedContainer = ({ mode = 'edit' }) => {
 
   const LIMIT = 5;
 
+  const sortByCreatedAtDesc = (list) =>
+    [...list].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
   useEffect(() => {
     const fetchInitialData = async () => {
       if (!id) return;
@@ -34,7 +37,9 @@ const FeedContainer = ({ mode = 'edit' }) => {
         });
 
         const results = questionData?.results || [];
-        setQuestions(results);
+        const sorted = sortByCreatedAtDesc(results);
+
+        setQuestions(sorted);
         setHaveMoreQuestions(results.length === LIMIT);
         setPagingByOffset(LIMIT);
       } catch (error) {
@@ -54,7 +59,7 @@ const FeedContainer = ({ mode = 'edit' }) => {
       SetLoadingMoreQuestions(true);
       //다음 질문 세트 불러오기
       const questionData = await questionApi.getBySubject(id, {
-        limit: 5,
+        limit: LIMIT,
         offset: pagingByOffset,
       });
 
@@ -62,7 +67,7 @@ const FeedContainer = ({ mode = 'edit' }) => {
       //만약 다음 질문 세트의 길이가 0보다 크면 로드
       if (newQuestions.length > 0) {
         //이전 로딩된 질문 + 새로운 질문
-        setQuestions((prev) => [...prev, ...newQuestions]);
+        setQuestions((prev) => sortByCreatedAtDesc([...prev, ...newQuestions]));
         //이전 offset + 5
         setPagingByOffset((prev) => prev + LIMIT);
         setHaveMoreQuestions(newQuestions.length === LIMIT);

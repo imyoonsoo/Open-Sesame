@@ -4,14 +4,15 @@ import defaultCatImage from '@/assets/images/img-profile-cat.png';
 import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
-import { answerApi } from '@/api';
-import EditDropdown from '@/components/answer/EditDropdown/EditDropdown';
+import { answerApi, questionApi } from '@/api';
+import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
 const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
-    likeCount = 0,
+    like = 0,
+    likeCount = 0, // mock 데이터 호환용
     createdAt = '',
     answer = null,
   } = questionData || {};
@@ -25,15 +26,27 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const [isReplying, setIsReplying] = useState(false); // 답변하기 텍스트창 열림 여부
   const [localName, setLocalName] = useState('');
 
+  const initialLikes = questionData?.like ?? questionData?.likeCount ?? 0;
+  const [likes, setLikes] = useState(initialLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
   const isButtonActive = answerText.trim().length > 0;
 
   useEffect(() => {
-    // localStorage에 저장된 username 가져오기 (문자열에 포함된 따옴표 제거 가능성 대비)
+    // localStorage에 저장된 username 가져오기
     const storedName = localStorage.getItem('username');
     if (storedName) {
       setLocalName(storedName.replace(/['"]/g, ''));
     }
-  }, []);
+
+    // 좋아요 여부 체크
+    const likedQuestions = JSON.parse(
+      localStorage.getItem('likedQuestions') || '[]'
+    );
+    if (questionId && likedQuestions.includes(questionId)) {
+      setIsLiked(true);
+    }
+  }, [questionId]);
 
   const handleAnswerSubmit = async () => {
     if (isButtonActive && !isAnswered) {
@@ -53,16 +66,43 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
     }
   };
 
+  const handleLikeClick = async () => {
+    if (!questionId || isLiked) return;
+    try {
+      // POST /questions/{questionId}/reaction/ 으로 type: "like" 전달
+      await questionApi.reaction(questionId, 'like');
+      // 성공하면 클라이언트 UI 상의 좋아요 수도 즉각 +1
+      setLikes((prev) => prev + 1);
+      setIsLiked(true);
+
+      const likedQuestions = JSON.parse(
+        localStorage.getItem('likedQuestions') || '[]'
+      );
+      likedQuestions.push(questionId);
+      localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
+    } catch (error) {
+      console.error('좋아요(참깨 방울) 반영 실패:', error);
+      alert('좋아요를 반영하는 중 문제가 발생했습니다.');
+    }
+  };
+
   const handleToggleReply = () => {
     setIsReplying(!isReplying);
   };
 
-  // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01)
+  // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01 11:24)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date)) return dateString;
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
   };
 
   const formattedDate = formatDate(createdAt);
@@ -81,16 +121,27 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
           <span className="status0-badge">미답변</span>
         )}
 
-        {mode === 'edit' && isAnswered && (
-          <EditDropdown
-            onEdit={() => {
+        <EditDropdown
+          prefixLabel={isAnswered ? '답변' : '질문'}
+          onEdit={() => {
+            if (isAnswered) {
+              console.log('답변 수정하기:', questionId);
               setIsReplying(true);
-            }}
-            onDelete={() => {
-              alert('삭제 기능 연결 예정');
-            }}
-          />
-        )}
+            } else {
+              console.log('질문 수정하기:', questionId);
+              alert('질문 수정 기능 연결 예정');
+            }
+          }}
+          onDelete={() => {
+            if (isAnswered) {
+              console.log('답변 삭제하기:', questionId);
+              alert('답변 삭제 기능 연결 예정');
+            } else {
+              console.log('질문 삭제하기:', questionId);
+              alert('질문 삭제 기능 연결 예정');
+            }
+          }}
+        />
       </div>
 
       {/* 질문 영역 */}
@@ -168,9 +219,13 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
 
       {/* 하단 버튼 영역 */}
       <div className="footer-section">
-        <button className="btn-action btn-sesame">
+        <button
+          className={`btn-action btn-sesame ${isLiked ? 'liked' : ''}`}
+          onClick={handleLikeClick}
+          disabled={isLiked}
+        >
           <img src={iconGoodSesame} alt="참깨 아이콘" className="icon-sesame" />
-          참깨 {likeCount} 방울
+          참깨 {likes} 방울
         </button>
       </div>
     </div>

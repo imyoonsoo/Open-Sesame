@@ -82,7 +82,7 @@ function PostPage() {
 
   const handleSubmit = async () => {
     try {
-      await questionApi.create(13467, message);
+      await questionApi.create(Number(id), message);
       handleCloseModal();
     } catch (error) {
       console.error('질문 등록 실패:', error);

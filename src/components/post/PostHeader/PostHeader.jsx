@@ -6,7 +6,8 @@ import FacebackVector from '@/assets/icons/icon-share-facebook.svg';
 import OpenSesameBackground from '@/assets/images/img-header-openmind.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
-
+import EditNameField from '@/components/post/EditNameField/EditNameField';
+import useEditUsername from '@/hooks/useEditUsername';
 import OptionDropdown from '@/components/post/OptionDropdown/OptionDropdown';
 
 /* ShareButton 컴포넌트 (링크, 카카오, 페이스북) */
@@ -26,15 +27,16 @@ function ShareButton({ className, icon, alt, onClick }) {
 }
 
 function PostHeader({
-  name = '나는 참깨',
   profile = Defaultprofile,
   linkIcon,
   kakaoIcon,
   facebookIcon,
-  onClickEditName,
   onClickDelete,
 }) {
   const navigate = useNavigate();
+  const { isEditing, username, setUsername, setIsEditing, handleSave } =
+    useEditUsername();
+
   return (
     <div id="postpage-header">
       <img
@@ -60,9 +62,17 @@ function PostHeader({
           onClick={(e) => e.stopPropagation()}
         />
         <div className="post-name-row">
-          <p className="post-name">{name}</p>
+          {isEditing ? (
+            <EditNameField
+              username={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onSave={handleSave}
+            />
+          ) : (
+            <p className="post-name">{username}</p>
+          )}
           <OptionDropdown
-            onClickEdit={onClickEditName}
+            onClickEdit={() => setIsEditing(true)}
             onClickDelete={onClickDelete}
           />
         </div>
