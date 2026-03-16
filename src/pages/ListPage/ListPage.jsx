@@ -35,6 +35,9 @@ function ListPage() {
   // 실제 검색에 적용되는 값 (Enter 눌렀을 때만 반영)
   const [searchKeyword, setSearchKeyword] = useState('');
 
+  // 한 페이지에 보여줄 카드 개수
+  const LIMIT = 8;
+
   const handleGoHome = () => navigate('/');
 
   const handleGoAnswer = () => {
@@ -57,6 +60,9 @@ function ListPage() {
   const handleSubmitSearch = () => {
     // Enter 눌렀을 때만 검색어 확정
     setSearchKeyword(searchInput);
+
+    // 검색 시 페이지를 1페이지로 다시 맞춤
+    setSearchParams({ page: '1', sort });
   };
 
   useEffect(() => {
@@ -68,27 +74,28 @@ function ListPage() {
       setErrorMsg('');
 
       try {
-        // 한 번에 가져올 카드 개수
-        const limit = 8;
+        // 먼저 전체 개수를 알아내기 위해 한 번 조회
+        const firstData = await subjectApi.getAll({
+          limit: LIMIT,
+          offset: 0,
+          sort,
+        });
 
-        // 페이지에 따라 offset 계산
-        const offset = (page - 1) * limit;
+        const count = firstData.count ?? 0;
 
-        // API 호출
-        const data = await subjectApi.getAll({ limit, offset, sort });
+        // 전체 목록을 다시 가져와서 검색 + 페이지네이션에 사용
+        const allData = await subjectApi.getAll({
+          limit: count || LIMIT,
+          offset: 0,
+          sort,
+        });
 
-        // API 응답 구조
-        // { count, results, next, previous }
-        const list = data.results ?? [];
-        const count = data.count ?? list.length;
+        const list = allData.results ?? [];
 
         if (!alive) return;
 
-        // 카드 목록 세팅
+        // 전체 카드 목록 저장
         setSubjects(list);
-
-        // 전체 페이지 수 계산
-        setTotalPages(Math.max(1, Math.ceil(count / limit)));
       } catch (e) {
         console.error('목록 조회 에러:', e);
 
@@ -108,7 +115,7 @@ function ListPage() {
     return () => {
       alive = false;
     };
-  }, [page, sort]);
+  }, [sort]);
 
   // 확정된 검색어 기준으로만 필터링
   const filteredSubjects = useMemo(() => {
@@ -116,6 +123,22 @@ function ListPage() {
       item.name.toLowerCase().includes(searchKeyword.toLowerCase())
     );
   }, [subjects, searchKeyword]);
+
+  // 필터링된 목록 기준으로 전체 페이지 수 계산
+  useEffect(() => {
+    const nextTotalPages = Math.max(
+      1,
+      Math.ceil(filteredSubjects.length / LIMIT)
+    );
+
+    setTotalPages(nextTotalPages);
+  }, [filteredSubjects]);
+
+  // 현재 페이지에 보여줄 카드만 잘라서 사용
+  const pagedSubjects = useMemo(() => {
+    const offset = (page - 1) * LIMIT;
+    return filteredSubjects.slice(offset, offset + LIMIT);
+  }, [filteredSubjects, page]);
 
   return (
     <div className="list-page">
@@ -145,7 +168,7 @@ function ListPage() {
         {/* 카드 목록 */}
         {!loading && !errorMsg && (
           <FeedGrid
-            items={filteredSubjects}
+            items={pagedSubjects}
             onClickCard={(id) => navigate(`/post/${id}`)}
           />
         )}
