@@ -18,6 +18,8 @@ const FeedContainer = ({ mode = 'edit' }) => {
 
   const observerTarget = useRef(null);
 
+  const LIMIT = 5;
+
   useEffect(() => {
     const fetchInitialData = async () => {
       if (!id) return;
@@ -27,14 +29,14 @@ const FeedContainer = ({ mode = 'edit' }) => {
         setQuestionCount(subjectData.questionCount || 0);
 
         const questionData = await questionApi.getBySubject(id, {
-          limit: 5,
+          limit: LIMIT,
           offset: 0,
         });
 
         const results = questionData?.results || [];
         setQuestions(results);
-        setHaveMoreQuestions(results.length === 5);
-        setPagingByOffset(5);
+        setHaveMoreQuestions(results.length === LIMIT);
+        setPagingByOffset(LIMIT);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
@@ -62,8 +64,8 @@ const FeedContainer = ({ mode = 'edit' }) => {
         //이전 로딩된 질문 + 새로운 질문
         setQuestions((prev) => [...prev, ...newQuestions]);
         //이전 offset + 5
-        setPagingByOffset((prev) => prev + 5);
-        setHaveMoreQuestions(newQuestions.length === 5);
+        setPagingByOffset((prev) => prev + LIMIT);
+        setHaveMoreQuestions(newQuestions.length === LIMIT);
       } else {
         setHaveMoreQuestions(false);
       }
