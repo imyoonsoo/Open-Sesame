@@ -7,6 +7,12 @@ export const subjectApi = {
     return res.data;
   },
 
+  // 대상 삭제
+  delete: async (subjectId) => {
+    const res = await axios.delete(`/subjects/${subjectId}/`);
+    return res.data;
+  },
+
   // 대상 목록 조회
   getAll: async ({ limit = 8, offset = 0, sort = 'time' } = {}) => {
     const res = await axios.get('/subjects/', {
