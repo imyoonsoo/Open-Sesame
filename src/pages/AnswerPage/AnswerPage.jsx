@@ -1,13 +1,11 @@
-import React from 'react';
+import PostLayout from '@/components/post/PostLayout/PostLayout';
 import FeedContainer from '@/components/answer/FeedContainer/FeedContainer';
-import PostHeader from '@/components/post/PostHeader/PostHeader';
 
 function AnswerPage() {
   return (
-    <div>
-      <PostHeader />
+    <PostLayout>
       <FeedContainer />
-    </div>
+    </PostLayout>
   );
 }
 
