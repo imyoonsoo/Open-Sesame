@@ -168,7 +168,10 @@ function PostPage() {
                 title="질문을 작성하세요"
                 onClose={handleCloseModal}
               />
-              <Modal.Avatar name={data.name || '아초는고양이'} />
+              <Modal.Avatar
+                name={data.name || '아초는고양이'}
+                src={data.profile || DefaultImg}
+              />
               <Modal.Body>
                 <InputTextArea
                   className="modal__input"
