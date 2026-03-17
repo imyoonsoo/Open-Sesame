@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './FeedBox.css';
 import defaultCatImage from '@/assets/images/img-profile-cat.png';
-import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi, questionApi } from '@/api';
 import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
 const FeedBox = ({ questionData, user, onDeleteSuccess }) => {
+  
+// 인라인 참깨 SVG — currentColor로 부모 버튼 색상 자동 상속
+const SesameSvg = ({ isLiked }) => (
+  <svg
+    className="icon-sesame-svg"
+    width="20"
+    height="23"
+    viewBox="0 0 13 15"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0.75 8.53554C0.75 5.74621 3.13667 2.98954 4.81267 1.39821C5.24311 0.982404 5.81819 0.75 6.41667 0.75C7.01514 0.75 7.59023 0.982404 8.02067 1.39821C9.696 2.99021 12.0833 5.74621 12.0833 8.53554C12.0833 11.2702 9.93733 14.0835 6.41667 14.0835C2.896 14.0835 0.75 11.2702 0.75 8.53554Z"
+      fill={isLiked ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
@@ -67,12 +85,10 @@ const FeedBox = ({ questionData, user, onDeleteSuccess }) => {
   const handleLikeClick = async () => {
     if (!questionId || isLiked) return;
     try {
-      // POST /questions/{questionId}/reaction/ 으로 type: "like" 전달
       await questionApi.reaction(questionId, 'like');
-      // 성공하면 클라이언트 UI 상의 좋아요 수도 즉각 +1
       setLikes((prev) => prev + 1);
       setIsLiked(true);
-      
+
       const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '[]');
       likedQuestions.push(questionId);
       localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
@@ -248,7 +264,7 @@ const FeedBox = ({ questionData, user, onDeleteSuccess }) => {
           onClick={handleLikeClick}
           disabled={isLiked}
         >
-          <img src={iconGoodSesame} alt="참깨 아이콘" className="icon-sesame" />
+          <SesameSvg isLiked={isLiked} />
           참깨 {likes} 방울
         </button>
       </div>
