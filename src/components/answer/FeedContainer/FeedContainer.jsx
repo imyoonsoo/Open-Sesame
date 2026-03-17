@@ -122,10 +122,10 @@ const FeedContainer = ({ mode = 'edit' }) => {
   return (
     <>
       <div className="feed-page-wrapper">
-        <div className="back-button">
+        {/* <div className="back-button">
           <img src={iconArrowLeft} alt="뒤로 가기" className="back-icon" />
           <span>뒤로</span>
-        </div>
+        </div> */}
         <div id="feed-container">
           <div className="feed-header">
             {questions.length === 0 ? (
