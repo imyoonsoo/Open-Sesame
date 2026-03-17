@@ -7,7 +7,7 @@ import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi, questionApi } from '@/api';
 import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
-const FeedBox = ({ questionData, user }) => {
+const FeedBox = ({ questionData, user, onDeleteSuccess }) => {
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
@@ -86,6 +86,42 @@ const FeedBox = ({ questionData, user }) => {
     setIsReplying(!isReplying);
   };
 
+  const handleDelete = async () => {
+  try {
+    if (isAnswered) {
+      if (!answer?.id) {
+        alert('답변 id가 없습니다.');
+        return;
+      }
+
+      await answerApi.delete(answer.id);
+
+      setIsAnswered(false);
+      setAnswerText('');
+      setIsRejected(false);
+      setIsReplying(false);
+
+      alert('답변이 삭제되었습니다.');
+
+      onDeleteSuccess?.();
+    } else {
+      if (!questionId) {
+        alert('질문 id가 없습니다.');
+        return;
+      }
+
+      await questionApi.delete(questionId);
+
+      alert('질문이 삭제되었습니다.');
+
+      onDeleteSuccess?.(questionId);
+    }
+  } catch (error) {
+    console.error('삭제 실패:', error);
+    alert('삭제에 실패했습니다.');
+  }
+};
+
   // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01 11:24)
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -117,7 +153,7 @@ const FeedBox = ({ questionData, user }) => {
         <span className="status0-badge">미답변</span>
       )}
 
-      <EditDropdown
+    <EditDropdown
       prefixLabel={isAnswered ? '답변' : '질문'}
       onEdit={() => {
         if (isAnswered) {
@@ -128,15 +164,7 @@ const FeedBox = ({ questionData, user }) => {
           alert('질문 수정 기능 연결 예정');
         }
       }}
-      onDelete={() => {
-        if (isAnswered) {
-          console.log('답변 삭제하기:', questionId);
-          alert('답변 삭제 기능 연결 예정');
-        } else {
-          console.log('질문 삭제하기:', questionId);
-          alert('질문 삭제 기능 연결 예정');
-        }
-      }}
+      onDelete={handleDelete}
     />
     </div>
 

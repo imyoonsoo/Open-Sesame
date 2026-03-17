@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './EditDropdown.css';
+import editIcon from '../../../assets/icons/icon-edit.png';
+import deleteIcon from '../../../assets/icons/icon-delete.png';
 
 function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +40,8 @@ function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
               onEdit?.();
             }}
           >
-            {prefixLabel} 수정하기
+            <img src={editIcon} alt="수정" className="edit-dropdown-icon" />
+            <span>{prefixLabel} 수정하기</span>
           </button>
 
           <button
@@ -48,7 +51,8 @@ function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
               onDelete?.();
             }}
           >
-            {prefixLabel} 삭제하기
+            <img src={deleteIcon} alt="삭제" className="edit-dropdown-icon" />
+            <span>{prefixLabel} 삭제하기</span>
           </button>
         </div>
       )}
