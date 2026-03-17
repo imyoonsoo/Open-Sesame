@@ -84,6 +84,9 @@ function PostPage() {
     try {
       await questionApi.create(Number(id), message);
       handleCloseModal();
+      setTimeout(() => {
+        window.location.href = `/post/${id}`;
+      }, 1000);
     } catch (error) {
       console.error('질문 등록 실패:', error);
     }
