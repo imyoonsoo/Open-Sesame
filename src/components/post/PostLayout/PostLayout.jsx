@@ -95,7 +95,7 @@ function PostLayout({
         </div>
       )}
 
-      {children}
+{typeof children === 'function' ? children(subject) : children}
     </div>
   );
 }

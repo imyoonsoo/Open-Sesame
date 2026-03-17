@@ -6,7 +6,7 @@ import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi, questionApi } from '@/api';
 import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
-const FeedBox = ({ questionData, user, onDeleteSuccess }) => {
+const FeedBox = ({ questionData, user, onDeleteSuccess, mode = 'edit' }) => {
   
 // 인라인 참깨 SVG — currentColor로 부모 버튼 색상 자동 상속
 const SesameSvg = ({ isLiked }) => (
@@ -43,7 +43,7 @@ const SesameSvg = ({ isLiked }) => (
   const [isRejected, setIsRejected] = useState(answer?.isRejected || false);
   const [isReplying, setIsReplying] = useState(false); // 답변하기 텍스트창 열림 여부
   const [localName, setLocalName] = useState('');
-  
+
   const initialLikes = questionData?.like ?? questionData?.likeCount ?? 0;
   const [likes, setLikes] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(false);
@@ -51,14 +51,16 @@ const SesameSvg = ({ isLiked }) => (
   const isButtonActive = answerText.trim().length > 0;
 
   useEffect(() => {
-    // localStorage에 저장된 username 가져오기 
+    // localStorage에 저장된 username 가져오기
     const storedName = localStorage.getItem('username');
     if (storedName) {
       setLocalName(storedName.replace(/['"]/g, ''));
     }
 
     // 좋아요 여부 체크
-    const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '[]');
+    const likedQuestions = JSON.parse(
+      localStorage.getItem('likedQuestions') || '[]'
+    );
     if (questionId && likedQuestions.includes(questionId)) {
       setIsLiked(true);
     }
@@ -89,7 +91,9 @@ const SesameSvg = ({ isLiked }) => (
       setLikes((prev) => prev + 1);
       setIsLiked(true);
 
-      const likedQuestions = JSON.parse(localStorage.getItem('likedQuestions') || '[]');
+      const likedQuestions = JSON.parse(
+        localStorage.getItem('likedQuestions') || '[]'
+      );
       likedQuestions.push(questionId);
       localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
     } catch (error) {
@@ -143,13 +147,13 @@ const SesameSvg = ({ isLiked }) => (
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date)) return dateString;
-    
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
     const minutes = String(date.getMinutes()).padStart(2, '0');
-    
+
     return `${year}.${month}.${day} ${hours}:${minutes}`;
   };
 
@@ -157,7 +161,7 @@ const SesameSvg = ({ isLiked }) => (
   const answerFormattedDate = formatDate(answer?.createdAt);
 
   const subjectName = user?.name || user?.nickname || '익명';
-  const isMySubject = localName === subjectName; // 내 대상(Subject) 판단 조건
+  const isMySubject = mode === 'edit' && localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
   <div className="feed-box">
@@ -191,7 +195,7 @@ const SesameSvg = ({ isLiked }) => (
       </div>
 
       {/* 답변 영역: 이미 답변이 있거나, 내 질문 대상일 때만 렌더링 */}
-      {(isAnswered || isMySubject) && (
+      {(mode === 'view' ? isAnswered : isAnswered || isMySubject) && (
         <div className="answer-section">
           <div className="profile-container">
             <img
@@ -209,7 +213,7 @@ const SesameSvg = ({ isLiked }) => (
               </span>
 
               {/* [답변하기] 토글: 아직 답변이 안달렸고 현재 사용자의 Subject일 때만 표시 */}
-              {!isAnswered && isMySubject && (
+              {mode === 'edit' && !isAnswered && isMySubject && (
                 <button
                   className="btn-reply-toggle"
                   onClick={handleToggleReply}
@@ -232,7 +236,7 @@ const SesameSvg = ({ isLiked }) => (
                   answerText
                 )}
               </p>
-            ) : isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
+            ) : mode === 'edit' && isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
               <div
                 className={`answer-input-container ${isReplying ? 'open' : ''}`}
               >
@@ -259,8 +263,8 @@ const SesameSvg = ({ isLiked }) => (
 
       {/* 하단 버튼 영역 */}
       <div className="footer-section">
-        <button 
-          className={`btn-action btn-sesame ${isLiked ? 'liked' : ''}`} 
+        <button
+          className={`btn-action btn-sesame ${isLiked ? 'liked' : ''}`}
           onClick={handleLikeClick}
           disabled={isLiked}
         >
