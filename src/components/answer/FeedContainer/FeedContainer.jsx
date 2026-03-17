@@ -53,7 +53,20 @@ const FeedContainer = () => {
         </div>
         {questions.length > 0 ? (
           questions.map((q) => (
-            <FeedBox key={q.id} questionData={q} user={subject} />
+            <FeedBox
+              key={q.id}
+              questionData={q}
+              user={subject}
+              onDeleteSuccess={(deletedQuestionId) => {
+                if (!deletedQuestionId) return;
+
+                setQuestions((prev) =>
+                  prev.filter((item) => item.id !== deletedQuestionId)
+                );
+
+                setQuestionCount((prev) => Math.max(prev - 1, 0));
+              }}
+            />
           ))
         ) : (
           <div className="empty-message-container">
