@@ -10,8 +10,8 @@ export const questionApi = {
   },
 
   // 질문 삭제
-  delete: async (questionId) => {
-    const res = await axios.delete(`/questions/${questionId}/`);
+  delete: async (subjectId) => {
+    const res = await axios.delete(`/questions/${subjectId}/`);
     return res.data;
   },
 

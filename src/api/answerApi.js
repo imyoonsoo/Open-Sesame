@@ -8,8 +8,8 @@ export const answerApi = {
   },
 
   // 답변 삭제
-  delete: async (answerId) => {
-    const res = await axios.delete(`/answers/${answerId}/`);
+  delete: async (questionId) => {
+    const res = await axios.delete(`/answers/${questionId}/`);
     return res.data;
   },
 };
