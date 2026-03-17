@@ -6,4 +6,10 @@ export const answerApi = {
     const res = await axios.post(`/questions/${questionId}/answers/`, data);
     return res.data;
   },
+
+  // 답변 삭제
+  delete: async (answerId) => {
+    const res = await axios.delete(`/answers/${answerId}/`);
+    return res.data;
+  },
 };

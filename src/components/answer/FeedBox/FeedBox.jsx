@@ -1,13 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import './FeedBox.css';
 import defaultCatImage from '@/assets/images/img-profile-cat.png';
-import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi, questionApi } from '@/api';
 import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
 
-const FeedBox = ({ questionData, user, mode = 'edit' }) => {
+const FeedBox = ({ questionData, user, onDeleteSuccess, mode = 'edit' }) => {
+  
+// 인라인 참깨 SVG — currentColor로 부모 버튼 색상 자동 상속
+const SesameSvg = ({ isLiked }) => (
+  <svg
+    className="icon-sesame-svg"
+    width="20"
+    height="23"
+    viewBox="0 0 13 15"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0.75 8.53554C0.75 5.74621 3.13667 2.98954 4.81267 1.39821C5.24311 0.982404 5.81819 0.75 6.41667 0.75C7.01514 0.75 7.59023 0.982404 8.02067 1.39821C9.696 2.99021 12.0833 5.74621 12.0833 8.53554C12.0833 11.2702 9.93733 14.0835 6.41667 14.0835C2.896 14.0835 0.75 11.2702 0.75 8.53554Z"
+      fill={isLiked ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
@@ -69,9 +87,7 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const handleLikeClick = async () => {
     if (!questionId || isLiked) return;
     try {
-      // POST /questions/{questionId}/reaction/ 으로 type: "like" 전달
       await questionApi.reaction(questionId, 'like');
-      // 성공하면 클라이언트 UI 상의 좋아요 수도 즉각 +1
       setLikes((prev) => prev + 1);
       setIsLiked(true);
 
@@ -89,6 +105,42 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const handleToggleReply = () => {
     setIsReplying(!isReplying);
   };
+
+  const handleDelete = async () => {
+  try {
+    if (isAnswered) {
+      if (!answer?.id) {
+        alert('답변 id가 없습니다.');
+        return;
+      }
+
+      await answerApi.delete(answer.id);
+
+      setIsAnswered(false);
+      setAnswerText('');
+      setIsRejected(false);
+      setIsReplying(false);
+
+      alert('답변이 삭제되었습니다.');
+
+      onDeleteSuccess?.();
+    } else {
+      if (!questionId) {
+        alert('질문 id가 없습니다.');
+        return;
+      }
+
+      await questionApi.delete(questionId);
+
+      alert('질문이 삭제되었습니다.');
+
+      onDeleteSuccess?.(questionId);
+    }
+  } catch (error) {
+    console.error('삭제 실패:', error);
+    alert('삭제에 실패했습니다.');
+  }
+};
 
   // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01 11:24)
   const formatDate = (dateString) => {
@@ -112,37 +164,29 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
   const isMySubject = mode === 'edit' && localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
-    <div className="feed-box">
-      {/* 최상단: 상태 배지 */}
-      <div className="badge-container">
-        {isAnswered ? (
-          <span className="status-badge">답변 완료</span>
-        ) : (
-          <span className="status0-badge">미답변</span>
-        )}
+  <div className="feed-box">
+    {/* 최상단: 상태 배지 */}
+    <div className="badge-container">
+      {isAnswered ? (
+        <span className="status-badge">답변 완료</span>
+      ) : (
+        <span className="status0-badge">미답변</span>
+      )}
 
-        <EditDropdown
-          prefixLabel={isAnswered ? '답변' : '질문'}
-          onEdit={() => {
-            if (isAnswered) {
-              console.log('답변 수정하기:', questionId);
-              setIsReplying(true);
-            } else {
-              console.log('질문 수정하기:', questionId);
-              alert('질문 수정 기능 연결 예정');
-            }
-          }}
-          onDelete={() => {
-            if (isAnswered) {
-              console.log('답변 삭제하기:', questionId);
-              alert('답변 삭제 기능 연결 예정');
-            } else {
-              console.log('질문 삭제하기:', questionId);
-              alert('질문 삭제 기능 연결 예정');
-            }
-          }}
-        />
-      </div>
+    <EditDropdown
+      prefixLabel={isAnswered ? '답변' : '질문'}
+      onEdit={() => {
+        if (isAnswered) {
+          console.log('답변 수정하기:', questionId);
+          setIsReplying(true);
+        } else {
+          console.log('질문 수정하기:', questionId);
+          alert('질문 수정 기능 연결 예정');
+        }
+      }}
+      onDelete={handleDelete}
+    />
+    </div>
 
       {/* 질문 영역 */}
       <div className="question-section">
@@ -224,7 +268,7 @@ const FeedBox = ({ questionData, user, mode = 'edit' }) => {
           onClick={handleLikeClick}
           disabled={isLiked}
         >
-          <img src={iconGoodSesame} alt="참깨 아이콘" className="icon-sesame" />
+          <SesameSvg isLiked={isLiked} />
           참깨 {likes} 방울
         </button>
       </div>
