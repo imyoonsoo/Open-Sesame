@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import LinkVector from '@/assets/icons/icon-share-link.svg';
 import KakaoVector from '@/assets/icons/icon-share-kakao.svg';
 import FacebackVector from '@/assets/icons/icon-share-facebook.svg';
-import OpenSesameBackground from '@/assets/images/img-header-openmind.png';
+import OpenSesameBackground from '@/assets/images/img-footer-logo.png';
 import OpenSesameLogo from '@/assets/images/OpenSesame/OpenSesame_logo.svg';
 import Defaultprofile from '@/assets/images/OpenSesame/OpenSesame_profile.svg';
 import EditNameField from '@/components/post/EditNameField/EditNameField';
