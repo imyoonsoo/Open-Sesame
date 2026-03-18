@@ -16,8 +16,8 @@ function PostLayout({
   const navigate = useNavigate();
 
   const [subject, setSubject] = useState({
-    name: undefined,
-    profile: undefined,
+    name: '',
+    profile: '',
   });
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
