@@ -1,4 +1,5 @@
 import './PostHeader.css';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LinkVector from '@/assets/icons/icon-share-link.svg';
 import KakaoVector from '@/assets/icons/icon-share-kakao.svg';
@@ -16,7 +17,6 @@ function ShareButton({ className, icon, alt, onClick }) {
     <button
       className={className}
       onClick={(e) => {
-        /* 이벤트 버블링 적용 */
         e.stopPropagation();
         onClick?.();
       }}
@@ -27,6 +27,7 @@ function ShareButton({ className, icon, alt, onClick }) {
 }
 
 function PostHeader({
+  name = '나는 참깨',
   profile = Defaultprofile,
   linkIcon,
   kakaoIcon,
@@ -34,8 +35,14 @@ function PostHeader({
   onClickDelete,
 }) {
   const navigate = useNavigate();
+
   const { isEditing, username, setUsername, setIsEditing, handleSave } =
     useEditUsername();
+
+  // 선택한 대상 이름이 바뀌면 input 값도 같이 맞춰줌
+  useEffect(() => {
+    setUsername(name || '');
+  }, [name, setUsername]);
 
   return (
     <div id="postpage-header">
@@ -45,6 +52,7 @@ function PostHeader({
         alt="배경"
         onClick={() => navigate('/')}
       />
+
       <div className="post-content">
         <img
           className="post-logo"
@@ -55,12 +63,14 @@ function PostHeader({
             navigate('/');
           }}
         />
+
         <img
           className="post-profile"
           src={profile || Defaultprofile}
           alt="프로필"
           onClick={(e) => e.stopPropagation()}
         />
+
         <div className="post-name-row">
           {isEditing ? (
             <EditNameField
@@ -69,13 +79,15 @@ function PostHeader({
               onSave={handleSave}
             />
           ) : (
-            <p className="post-name">{username}</p>
+            <p className="post-name">{name}</p>
           )}
+
           <OptionDropdown
             onClickEdit={() => setIsEditing(true)}
             onClickDelete={onClickDelete}
           />
         </div>
+
         <div className="post-share">
           <ShareButton
             className="post-linkBtn"
