@@ -58,6 +58,7 @@
   width: clamp(94px, 8vw, 140px);
   height: clamp(94px, 8vw, 140px);
   cursor: pointer;
+  border-radius: 50%;
 }
 
 /* 이름 + 옵션 버튼 정렬 */
