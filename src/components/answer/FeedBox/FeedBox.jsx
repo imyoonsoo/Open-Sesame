@@ -5,6 +5,7 @@ import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
 import { answerApi, questionApi } from '@/api';
 import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
+import DeleteCompleteModal from '@/components/common/DeleteCompleteModal/DeleteCompleteModal';
 
 const FeedBox = ({ questionData, user, onDeleteSuccess, mode = 'edit' }) => {
   
@@ -47,6 +48,9 @@ const SesameSvg = ({ isLiked }) => (
   const initialLikes = questionData?.like ?? questionData?.likeCount ?? 0;
   const [likes, setLikes] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(false);
+
+  const [isDeleteCompleteOpen, setIsDeleteCompleteOpen] = useState(false);
+  const [deleteCompleteMessage, setDeleteCompleteMessage] = useState('');
 
   const isButtonActive = answerText.trim().length > 0;
 
@@ -121,9 +125,9 @@ const SesameSvg = ({ isLiked }) => (
       setIsRejected(false);
       setIsReplying(false);
 
-      alert('답변이 삭제되었습니다.');
+      setDeleteCompleteMessage('답변이 삭제되었습니다.');
+      setIsDeleteCompleteOpen(true);
 
-      onDeleteSuccess?.();
     } else {
       if (!questionId) {
         alert('질문 id가 없습니다.');
@@ -131,8 +135,6 @@ const SesameSvg = ({ isLiked }) => (
       }
 
       await questionApi.delete(questionId);
-
-      alert('질문이 삭제되었습니다.');
 
       onDeleteSuccess?.(questionId);
     }
@@ -175,13 +177,11 @@ const SesameSvg = ({ isLiked }) => (
 
     <EditDropdown
       prefixLabel={isAnswered ? '답변' : '질문'}
+      showEdit={isAnswered}
       onEdit={() => {
         if (isAnswered) {
           console.log('답변 수정하기:', questionId);
           setIsReplying(true);
-        } else {
-          console.log('질문 수정하기:', questionId);
-          alert('질문 수정 기능 연결 예정');
         }
       }}
       onDelete={handleDelete}
@@ -272,6 +272,12 @@ const SesameSvg = ({ isLiked }) => (
           참깨 {likes} 방울
         </button>
       </div>
+
+        <DeleteCompleteModal
+        isOpen={isDeleteCompleteOpen}
+        onClose={() => setIsDeleteCompleteOpen(false)}
+        message={deleteCompleteMessage}
+      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import './EditDropdown.css';
 import editIcon from '../../../assets/icons/icon-edit.png';
 import deleteIcon from '../../../assets/icons/icon-delete.png';
 
-function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
+function EditDropdown({ onEdit, onDelete, prefixLabel = '', showEdit = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -33,17 +33,19 @@ function EditDropdown({ onEdit, onDelete, prefixLabel = '' }) {
 
       {isOpen && (
         <div className="edit-dropdown-menu">
-          <button
-            className="edit-dropdown-item"
-            onClick={() => {
-              setIsOpen(false);
-              onEdit?.();
-            }}
-          >
+          {showEdit && (
+            <button
+              className="edit-dropdown-item"
+              onClick={() => {
+                setIsOpen(false);
+                onEdit?.();
+              }}
+            >
+
             <img src={editIcon} alt="수정" className="edit-dropdown-icon" />
             <span>{prefixLabel} 수정하기</span>
           </button>
-
+    )}
           <button
             className="edit-dropdown-item delete"
             onClick={() => {

@@ -6,6 +6,7 @@ import iconMessages from '@/assets/icons/icon-messages.svg';
 import iconArrowLeft from '@/assets/icons/icon-arrow-left.svg';
 import { subjectApi, questionApi } from '@/api';
 import NoQuestion from '@/components/post/NoQuestion/NoQuestion';
+import DeleteCompleteModal from '@/components/common/DeleteCompleteModal/DeleteCompleteModal';
 
 const FeedContainer = ({ mode = 'edit' }) => {
   const { id } = useParams();
@@ -15,6 +16,8 @@ const FeedContainer = ({ mode = 'edit' }) => {
   const [pagingByOffset, setPagingByOffset] = useState(0);
   const [loadingMoreQuestions, SetLoadingMoreQuestions] = useState(false);
   const [questionCount, setQuestionCount] = useState(0);
+  const [isDeleteCompleteOpen, setIsDeleteCompleteOpen] = useState(false);
+  const [deleteCompleteMessage, setDeleteCompleteMessage] = useState('');
 
   const observerTarget = useRef(null);
 
@@ -116,7 +119,22 @@ const FeedContainer = ({ mode = 'edit' }) => {
   }, [loadMoreQuestions, haveMoreQuestions, loadingMoreQuestions]);
 
   const questionList = questions.map((q) => (
-    <FeedBox key={q.id} questionData={q} user={subject} mode={mode} />
+    <FeedBox
+      key={q.id}
+      questionData={q}
+      user={subject}
+      mode={mode}
+      onDeleteSuccess={(deletedQuestionId) => {
+        if (!deletedQuestionId) return;
+
+        setQuestions((prev) =>
+          prev.filter((item) => item.id !== deletedQuestionId)
+        );
+        setQuestionCount((prev) => Math.max(prev - 1, 0));
+        setDeleteCompleteMessage('질문이 삭제되었습니다.');
+        setIsDeleteCompleteOpen(true);
+      }}
+    />
   ));
 
   return (
@@ -155,6 +173,11 @@ const FeedContainer = ({ mode = 'edit' }) => {
           )}
         </div>
       </div>
+      <DeleteCompleteModal
+  isOpen={isDeleteCompleteOpen}
+  onClose={() => setIsDeleteCompleteOpen(false)}
+  message={deleteCompleteMessage}
+/>
     </>
   );
 };
