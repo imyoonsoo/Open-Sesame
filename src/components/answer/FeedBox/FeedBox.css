@@ -105,6 +105,7 @@
   .user-info {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
     /* margin-bottom은 .answer-content가 있을 때만 여백을 주기 위해 margin 제거 */
   }
@@ -180,21 +181,38 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    color: #818181;
+    transition: color 0.4s ease;
+  }
+
+  .btn-sesame.liked {
     color: #e38500;
   }
 
-  .footer-section button:hover {
+  .footer-section button:hover:not(:disabled) {
     opacity: 0.7;
   }
 
-  .icon-sesame {
-    width: 20px;
-    height: 20px;
-    /* #e38500 을 나타내기 위한 filter 값 (검정색 원본 기준) */
-    filter: invert(53%) sepia(87%) saturate(1633%) hue-rotate(8deg) brightness(97%) contrast(101%);
-    display: block;
-    margin-top: -2px; /* 텍스트 베이스라인과 시각적 중심을 맞추기 위한 미세 조정 */
+  .footer-section button:disabled {
+    cursor: default;
+    opacity: 0.6;
   }
+
+  /* 인라인 참깨 SVG 기본 스타일 */
+  .icon-sesame-svg {
+    display: block;
+    margin-top: -2px;
+    overflow: visible;
+  }
+
+  /* 누른 후: 주황으로 전환 */
+  .icon-sesame-svg.liked path {
+    fill: #e38500;
+    stroke: #e38500;
+  }
+
+
+
 
   /* 답변 텍스트 입력창 펼침/접힘 애니메이션 (CSS Grid 활용) */
   .answer-input-container {

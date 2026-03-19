@@ -1,0 +1,57 @@
+.delete-complete-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.delete-complete-modal {
+  width: 280px;
+  background: #fdfdfd;
+  border-radius: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  padding: 28px 20px 24px;
+  text-align: center;
+}
+
+.delete-complete-image {
+  width: 60px;
+  display: block;
+  margin: 0 auto 16px;
+}
+
+.delete-complete-message {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1f1f1f;
+  margin-bottom: 20px;
+  white-space: pre-line;
+}
+
+.delete-complete-button {
+  width: 90px;
+  height: 44px;
+  border: none;
+  border-radius: 16px;
+  background: #7b4324;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.delete-complete-button:hover {
+  background: #91512d;
+  transform: translateY(-1px);
+}
+
+.delete-complete-button:active {
+  background: #65371d;
+  transform: translateY(1px);
+}

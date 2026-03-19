@@ -1,16 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import './FeedBox.css';
 import defaultCatImage from '@/assets/images/img-profile-cat.png';
-import iconGoodSesame from '@/assets/icons/icon-good-sesame.svg';
 import iconArrowDown from '@/assets/icons/icon-arrow-down.svg';
 import iconArrowUp from '@/assets/icons/icon-arrow-up.svg';
-import { createAnswer } from '@/api/openmindApi';
+import { answerApi, questionApi } from '@/api';
+import EditDropdown from '@/components/common/EditDropdown/EditDropdown';
+import DeleteCompleteModal from '@/components/common/DeleteCompleteModal/DeleteCompleteModal';
 
-const FeedBox = ({ questionData, user }) => {
+const FeedBox = ({ questionData, user, onDeleteSuccess, mode = 'edit' }) => {
+  
+// 인라인 참깨 SVG — currentColor로 부모 버튼 색상 자동 상속
+const SesameSvg = ({ isLiked }) => (
+  <svg
+    className="icon-sesame-svg"
+    width="20"
+    height="23"
+    viewBox="0 0 13 15"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M0.75 8.53554C0.75 5.74621 3.13667 2.98954 4.81267 1.39821C5.24311 0.982404 5.81819 0.75 6.41667 0.75C7.01514 0.75 7.59023 0.982404 8.02067 1.39821C9.696 2.99021 12.0833 5.74621 12.0833 8.53554C12.0833 11.2702 9.93733 14.0835 6.41667 14.0835C2.896 14.0835 0.75 11.2702 0.75 8.53554Z"
+      fill={isLiked ? 'currentColor' : 'none'}
+      stroke="currentColor"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
   const {
     id: questionId,
     content: questionContent = '질문 내용이 없습니다.',
-    likeCount = 0,
+    like = 0,
+    likeCount = 0, // mock 데이터 호환용
     createdAt = '',
     answer = null,
   } = questionData || {};
@@ -24,24 +45,39 @@ const FeedBox = ({ questionData, user }) => {
   const [isReplying, setIsReplying] = useState(false); // 답변하기 텍스트창 열림 여부
   const [localName, setLocalName] = useState('');
 
+  const initialLikes = questionData?.like ?? questionData?.likeCount ?? 0;
+  const [likes, setLikes] = useState(initialLikes);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const [isDeleteCompleteOpen, setIsDeleteCompleteOpen] = useState(false);
+  const [deleteCompleteMessage, setDeleteCompleteMessage] = useState('');
+
   const isButtonActive = answerText.trim().length > 0;
 
   useEffect(() => {
-    // localStorage에 저장된 username 가져오기 (문자열에 포함된 따옴표 제거 가능성 대비)
+    // localStorage에 저장된 username 가져오기
     const storedName = localStorage.getItem('username');
     if (storedName) {
       setLocalName(storedName.replace(/['"]/g, ''));
     }
-  }, []);
+
+    // 좋아요 여부 체크
+    const likedQuestions = JSON.parse(
+      localStorage.getItem('likedQuestions') || '[]'
+    );
+    if (questionId && likedQuestions.includes(questionId)) {
+      setIsLiked(true);
+    }
+  }, [questionId]);
 
   const handleAnswerSubmit = async () => {
     if (isButtonActive && !isAnswered) {
-      if (!questionId) return; 
+      if (!questionId) return;
       // 답변등록 관련 오류 처리
       try {
-        const result = await createAnswer(questionId, {
+        const result = await answerApi.create(questionId, {
           content: answerText,
-          isRejected: false
+          isRejected: false,
         });
         setIsAnswered(true);
         setIsReplying(false); // 제출 후 텍스트 영역 닫기
@@ -52,34 +88,105 @@ const FeedBox = ({ questionData, user }) => {
     }
   };
 
+  const handleLikeClick = async () => {
+    if (!questionId || isLiked) return;
+    try {
+      await questionApi.reaction(questionId, 'like');
+      setLikes((prev) => prev + 1);
+      setIsLiked(true);
+
+      const likedQuestions = JSON.parse(
+        localStorage.getItem('likedQuestions') || '[]'
+      );
+      likedQuestions.push(questionId);
+      localStorage.setItem('likedQuestions', JSON.stringify(likedQuestions));
+    } catch (error) {
+      console.error('좋아요(참깨 방울) 반영 실패:', error);
+      alert('좋아요를 반영하는 중 문제가 발생했습니다.');
+    }
+  };
+
   const handleToggleReply = () => {
     setIsReplying(!isReplying);
   };
 
-  // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01)
+  const handleDelete = async () => {
+  try {
+    if (isAnswered) {
+      if (!answer?.id) {
+        alert('답변 id가 없습니다.');
+        return;
+      }
+
+      await answerApi.delete(answer.id);
+
+      setIsAnswered(false);
+      setAnswerText('');
+      setIsRejected(false);
+      setIsReplying(false);
+
+      setDeleteCompleteMessage('답변이 삭제되었습니다.');
+      setIsDeleteCompleteOpen(true);
+
+    } else {
+      if (!questionId) {
+        alert('질문 id가 없습니다.');
+        return;
+      }
+
+      await questionApi.delete(questionId);
+
+      onDeleteSuccess?.(questionId);
+    }
+  } catch (error) {
+    console.error('삭제 실패:', error);
+    alert('삭제에 실패했습니다.');
+  }
+};
+
+  // 날짜 포맷 (예: 2023-11-01T02:24:43Z -> 2023.11.01 11:24)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date)) return dateString;
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(2, '0')}.${String(date.getDate()).padStart(2, '0')}`;
+
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${year}.${month}.${day} ${hours}:${minutes}`;
   };
 
   const formattedDate = formatDate(createdAt);
   const answerFormattedDate = formatDate(answer?.createdAt);
 
   const subjectName = user?.name || user?.nickname || '익명';
-  const isMySubject = localName === subjectName; // 내 대상(Subject) 판단 조건
+  const isMySubject = mode === 'edit' && localName === subjectName; // 내 대상(Subject) 판단 조건
 
   return (
-    <div className="feed-box">
-      {/* 최상단: 상태 배지 */}
-      <div className="badge-container">
-        {isAnswered ? (
-          <span className="status-badge">답변 완료</span>
-        ) : (
-          <span className="status0-badge">미답변</span>
-        )}
-      </div>
+  <div className="feed-box">
+    {/* 최상단: 상태 배지 */}
+    <div className="badge-container">
+      {isAnswered ? (
+        <span className="status-badge">답변 완료</span>
+      ) : (
+        <span className="status0-badge">미답변</span>
+      )}
+
+    <EditDropdown
+      prefixLabel={isAnswered ? '답변' : '질문'}
+      showEdit={isAnswered}
+      onEdit={() => {
+        if (isAnswered) {
+          console.log('답변 수정하기:', questionId);
+          setIsReplying(true);
+        }
+      }}
+      onDelete={handleDelete}
+    />
+    </div>
 
       {/* 질문 영역 */}
       <div className="question-section">
@@ -88,7 +195,7 @@ const FeedBox = ({ questionData, user }) => {
       </div>
 
       {/* 답변 영역: 이미 답변이 있거나, 내 질문 대상일 때만 렌더링 */}
-      {(isAnswered || isMySubject) && (
+      {(mode === 'view' ? isAnswered : isAnswered || isMySubject) && (
         <div className="answer-section">
           <div className="profile-container">
             <img
@@ -101,53 +208,76 @@ const FeedBox = ({ questionData, user }) => {
           <div className="content-container">
             <div className="user-info">
               <span className="nickname">{subjectName}</span>
-              <span className="date">{isAnswered ? answerFormattedDate : formattedDate}</span>
-              
+              <span className="date">
+                {isAnswered ? answerFormattedDate : formattedDate}
+              </span>
+
               {/* [답변하기] 토글: 아직 답변이 안달렸고 현재 사용자의 Subject일 때만 표시 */}
-              {!isAnswered && isMySubject && (
-                <button className="btn-reply-toggle" onClick={handleToggleReply}>
+              {mode === 'edit' && !isAnswered && isMySubject && (
+                <button
+                  className="btn-reply-toggle"
+                  onClick={handleToggleReply}
+                >
                   {isReplying ? '닫기' : '답변하기'}
-                  <img src={isReplying ? iconArrowUp : iconArrowDown} alt="토글 아이콘" className="reply-toggle-icon" />
+                  <img
+                    src={isReplying ? iconArrowUp : iconArrowDown}
+                    alt="토글 아이콘"
+                    className="reply-toggle-icon"
+                  />
                 </button>
               )}
             </div>
 
             {isAnswered ? (
               <p className="answer-content">
-                 {isRejected ? <span className="rejected-text">답변 거절</span> : answerText}
+                {isRejected ? (
+                  <span className="rejected-text">답변 거절</span>
+                ) : (
+                  answerText
+                )}
               </p>
-            ) : (
-              isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
-                <div className={`answer-input-container ${isReplying ? 'open' : ''}`}>
-                  <div className="answer-input-wrapper">
-                    <textarea
-                      className="answer-textarea"
-                      placeholder="답변을 입력해주세요"
-                      value={answerText}
-                      onChange={(e) => setAnswerText(e.target.value)}
-                    />
-                    <button
-                      className={`btn-submit ${isButtonActive ? 'active' : 'disabled'}`}
-                      disabled={!isButtonActive}
-                      onClick={handleAnswerSubmit}
-                    >
-                      답변 완료
-                    </button>
-                  </div>
+            ) : mode === 'edit' && isMySubject ? ( // isReplying 토글에 맞춰 CSS transition 적용
+              <div
+                className={`answer-input-container ${isReplying ? 'open' : ''}`}
+              >
+                <div className="answer-input-wrapper">
+                  <textarea
+                    className="answer-textarea"
+                    placeholder="답변을 입력해주세요"
+                    value={answerText}
+                    onChange={(e) => setAnswerText(e.target.value)}
+                  />
+                  <button
+                    className={`btn-submit ${isButtonActive ? 'active' : 'disabled'}`}
+                    disabled={!isButtonActive}
+                    onClick={handleAnswerSubmit}
+                  >
+                    답변 완료
+                  </button>
                 </div>
-              ) : null
-            )}
+              </div>
+            ) : null}
           </div>
         </div>
       )}
 
       {/* 하단 버튼 영역 */}
       <div className="footer-section">
-        <button className="btn-action btn-sesame">
-          <img src={iconGoodSesame} alt="참깨 아이콘" className="icon-sesame" />
-          참깨 {likeCount} 방울
+        <button
+          className={`btn-action btn-sesame ${isLiked ? 'liked' : ''}`}
+          onClick={handleLikeClick}
+          disabled={isLiked}
+        >
+          <SesameSvg isLiked={isLiked} />
+          참깨 {likes} 방울
         </button>
       </div>
+
+        <DeleteCompleteModal
+        isOpen={isDeleteCompleteOpen}
+        onClose={() => setIsDeleteCompleteOpen(false)}
+        message={deleteCompleteMessage}
+      />
     </div>
   );
 };
