@@ -12,4 +12,10 @@ export const answerApi = {
     const res = await axios.delete(`/answers/${answerId}/`);
     return res.data;
   },
+
+  //답변 수정
+    update: async (answerId, data) => {
+      const res = await axios.put(`/answers/${answerId}/`, data);
+      return res.data;
+  },
 };

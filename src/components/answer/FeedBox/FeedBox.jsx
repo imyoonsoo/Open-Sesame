@@ -35,6 +35,7 @@ const SesameSvg = ({ isLiked }) => (
     createdAt = '',
     answer = null,
   } = questionData || {};
+  const answerId = answer?.id;
 
   const defaultProfile = defaultCatImage;
 
@@ -48,7 +49,7 @@ const SesameSvg = ({ isLiked }) => (
   const initialLikes = questionData?.like ?? questionData?.likeCount ?? 0;
   const [likes, setLikes] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(false);
-
+  const [isEditingAnswer, setIsEditingAnswer] = useState(false);
   const [isDeleteCompleteOpen, setIsDeleteCompleteOpen] = useState(false);
   const [deleteCompleteMessage, setDeleteCompleteMessage] = useState('');
 
@@ -70,23 +71,40 @@ const SesameSvg = ({ isLiked }) => (
     }
   }, [questionId]);
 
-  const handleAnswerSubmit = async () => {
-    if (isButtonActive && !isAnswered) {
-      if (!questionId) return;
-      // 답변등록 관련 오류 처리
+      const handleAnswerSubmit = async () => {
+      if (!isButtonActive) return;
+
       try {
-        const result = await answerApi.create(questionId, {
+        if (!isAnswered) {
+          if (!questionId) return;
+
+          await answerApi.create(questionId, {
+            content: answerText,
+            isRejected: false,
+          });
+
+          setIsAnswered(true);
+          setIsReplying(false);
+        } else if (isEditingAnswer) {
+        if (!answerId) {
+          alert('답변 id가 없습니다.');
+          return;
+        }
+
+        await answerApi.update(answerId, {
           content: answerText,
           isRejected: false,
         });
-        setIsAnswered(true);
-        setIsReplying(false); // 제출 후 텍스트 영역 닫기
-      } catch (error) {
-        console.error('답변 등록 실패:', error);
-        alert('답변을 등록하는 중 문제가 발생했습니다.');
+
+        setIsReplying(false);
+        setIsEditingAnswer(false);
       }
-    }
-  };
+      } catch (error) {
+        console.error('답변 등록/수정 실패:', error);
+        alert('답변 처리 중 문제가 발생했습니다.');
+      }
+    };
+
 
   const handleLikeClick = async () => {
     if (!questionId || isLiked) return;
@@ -106,9 +124,12 @@ const SesameSvg = ({ isLiked }) => (
     }
   };
 
-  const handleToggleReply = () => {
-    setIsReplying(!isReplying);
-  };
+    const handleToggleReply = () => {
+      if (isEditingAnswer && isReplying) {
+        setIsEditingAnswer(false);
+      }
+      setIsReplying(!isReplying);
+    };
 
   const handleDelete = async () => {
   try {
@@ -179,11 +200,12 @@ const SesameSvg = ({ isLiked }) => (
       prefixLabel={isAnswered ? '답변' : '질문'}
       showEdit={isAnswered}
       onEdit={() => {
-        if (isAnswered) {
-          console.log('답변 수정하기:', questionId);
-          setIsReplying(true);
-        }
-      }}
+      if (isAnswered) {
+        console.log('답변 수정하기:', questionId);
+        setIsEditingAnswer(true);
+        setIsReplying(true);
+      }
+    }}
       onDelete={handleDelete}
     />
     </div>
@@ -213,7 +235,7 @@ const SesameSvg = ({ isLiked }) => (
               </span>
 
               {/* [답변하기] 토글: 아직 답변이 안달렸고 현재 사용자의 Subject일 때만 표시 */}
-              {mode === 'edit' && !isAnswered && isMySubject && (
+              {mode === 'edit' && isMySubject && (!isAnswered || isEditingAnswer) && (
                 <button
                   className="btn-reply-toggle"
                   onClick={handleToggleReply}
@@ -228,7 +250,7 @@ const SesameSvg = ({ isLiked }) => (
               )}
             </div>
 
-            {isAnswered ? (
+            {isAnswered && !isEditingAnswer ? (
               <p className="answer-content">
                 {isRejected ? (
                   <span className="rejected-text">답변 거절</span>
